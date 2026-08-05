@@ -1,14 +1,50 @@
 ---
 import FloralImage from "./FloralImage.astro";
 const links = {
-  youtube: "", // full watch URL, embed derived below
-  instagram: "",
-  tiktok: "",
+  youtube: "https://www.youtube.com/watch?v=tAIiXRZNh9E&t=2399s", // full watch URL, embed derived below
+  instagram: "https://www.instagram.com/tasyanwr/",
+  tiktok: "https://www.tiktok.com/@byu.ik",
 };
 
-const youtubeEmbed = links.youtube
-  ? links.youtube.replace("watch?v=", "embed/")
-  : null;
+/**
+ * Builds a proper /embed/ URL. A plain string replace is not enough: a watch URL
+ * carrying extra params (`&t=2399s`) would leave them dangling after the video id
+ * with no `?`, which YouTube rejects. Handles youtu.be short links too.
+ */
+function toYoutubeEmbed(watchUrl: string): string | null {
+  if (!watchUrl) return null;
+
+  let id: string | null = null;
+  let startSeconds: number | null = null;
+
+  try {
+    const url = new URL(watchUrl);
+    id = url.hostname.includes("youtu.be")
+      ? url.pathname.slice(1)
+      : url.searchParams.get("v");
+
+    const t = url.searchParams.get("t") ?? url.searchParams.get("start");
+    if (t) {
+      // accepts "2399", "2399s", and "1h2m3s"
+      const hms = t.match(/^(?:(\d+)h)?(?:(\d+)m)?(?:(\d+)s?)?$/);
+      if (hms) {
+        const [, h, m, s] = hms;
+        startSeconds =
+          Number(h ?? 0) * 3600 + Number(m ?? 0) * 60 + Number(s ?? 0);
+      }
+    }
+  } catch {
+    return null;
+  }
+
+  if (!id) return null;
+
+  const embed = new URL(`https://www.youtube.com/embed/${id}`);
+  if (startSeconds) embed.searchParams.set("start", String(startSeconds));
+  return embed.toString();
+}
+
+const youtubeEmbed = toYoutubeEmbed(links.youtube);
 ---
 
 <section class="bg-botanical relative overflow-hidden bg-cream-100 px-6 py-16 text-center">
