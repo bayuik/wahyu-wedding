@@ -68,10 +68,13 @@ const guestName = getGuestNameFromUrl(Astro.url);
       <SectionBlend from="from-dusty-900" to="to-cream-100" height="h-52 sm:h-64" />
       <LiveStream />
 
+      {/* Love Gift disembunyikan sementara: belum mau menampilkan nomor rekening.
+          Untuk memunculkan lagi, hapus komentar di bawah ini (dan blend-nya),
+          lalu ubah blend Live Streaming -> RSVP jadi cream-100 -> dusty-100.
       <SectionBlend from="from-cream-100" to="to-dusty-100" />
       <GiftSection />
-
       <SectionBlend from="from-dusty-100" to="to-cream-100" />
+      */}
 
       <section class="bg-botanical relative overflow-hidden bg-cream-100 px-6 py-16 text-center">
         <FloralImage class="pointer-events-none absolute -top-4 -left-6 h-36 w-auto opacity-85 sm:h-48" />

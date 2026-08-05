@@ -18,7 +18,7 @@ Mini PC udah punya Postgres 16 jalan di Docker (`~/docker/odoo-postgres/`, share
 2. **Production (diputuskan)**: tetap self-host di mini PC, lewat tunnel Cloudflare yang udah ada (`odoo19-ce`, awalnya cuma buat `internal.bayuik.com` ke Odoo). Vercel gak bisa connect raw Postgres protocol ke tunnel (Cloudflare Tunnel gratis cuma buat HTTP, raw TCP publik butuh Spectrum berbayar), jadi ditaruh **PostgREST** di depan Postgres:
    - Role Postgres terbatas `wedding_api`: cuma `INSERT` ke `rsvp` & `wishes`, `SELECT` ke view `wishes_public` (filter `approved = true`). Gak bisa baca tabel mentah.
    - Container `wedding-api` (image `postgrest/postgrest`) nambah di `~/docker/odoo-postgres/docker-compose.yml`, port `8021` di host.
-   - Ingress baru di tunnel: `api.natasya.bayuik.com` → `http://localhost:8021`, jalan bareng ingress Odoo yang lama, satu tunnel aja.
+   - Ingress baru di tunnel: `wedding-api.bayuik.com` → `http://localhost:8021`, jalan bareng ingress Odoo yang lama, satu tunnel aja. (Sempat coba `api.natasya.bayuik.com`, gagal karena itu subdomain 3 level dan gak ke-cover wildcard SSL `*.bayuik.com` punya Cloudflare, cuma cover 1 level.)
    - Kode `/api/rsvp` & `/api/wishes` di-refactor lewat `src/lib/repo.ts`: kalau env `POSTGREST_URL` ke-set (production di Vercel), fetch ke PostgREST; kalau enggak (dev di mini PC), tetap Drizzle langsung ke `localhost:5432` kayak biasa. Gak ada perubahan behavior pas dev.
    - Risiko yang disadari: RSVP tamu bergantung mini PC + internet rumah nyala terus pas hari-H. Diterima, gak pindah ke Neon.
 
