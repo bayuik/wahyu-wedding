@@ -1,0 +1,46 @@
+---
+import FloralImage from "./FloralImage.astro";
+
+interface Props {
+  /** tailwind gradient stop matching the section ABOVE, e.g. "from-cream-100" */
+  from: string;
+  /** tailwind gradient stop matching the section BELOW, e.g. "to-dusty-900" */
+  to: string;
+  /** taller blends read softer; use more height for light-to-dark jumps */
+  height?: string;
+  class?: string;
+}
+
+const {
+  from,
+  to,
+  height = "h-40 sm:h-52",
+  class: className = "",
+} = Astro.props;
+
+// bouquets straddling the seam; irregular size, depth and offset so the row
+// scatters rather than reading as an evenly spaced band
+const sprigs = [
+  { left: "-5%", size: "h-32 sm:h-44", flip: false, rot: "rotate-6",    shift: "translate-y-3",  op: "opacity-95" },
+  { left: "9%",  size: "h-16 sm:h-24", flip: true,  rot: "-rotate-12",  shift: "-translate-y-8", op: "opacity-70" },
+  { left: "21%", size: "h-24 sm:h-32", flip: false, rot: "rotate-[24deg]", shift: "translate-y-6", op: "opacity-90" },
+  { left: "33%", size: "h-36 sm:h-48", flip: true,  rot: "-rotate-3",   shift: "-translate-y-1", op: "opacity-95" },
+  { left: "46%", size: "h-14 sm:h-20", flip: false, rot: "rotate-[160deg]", shift: "translate-y-9", op: "opacity-60" },
+  { left: "56%", size: "h-28 sm:h-40", flip: true,  rot: "rotate-12",   shift: "-translate-y-5", op: "opacity-90" },
+  { left: "70%", size: "h-20 sm:h-28", flip: false, rot: "-rotate-[18deg]", shift: "translate-y-7", op: "opacity-75" },
+  { left: "81%", size: "h-32 sm:h-44", flip: true,  rot: "rotate-3",    shift: "-translate-y-2", op: "opacity-95" },
+  { left: "93%", size: "h-24 sm:h-32", flip: false, rot: "-rotate-6",   shift: "translate-y-5",  op: "opacity-85" },
+];
+---
+
+<div
+  class={`relative w-full overflow-hidden bg-gradient-to-b ${from} ${to} ${height} ${className}`}
+  aria-hidden="true"
+>
+  {sprigs.map((s) => (
+    <FloralImage
+      class={`pointer-events-none absolute top-1/2 w-auto ${s.op} ${s.size} ${s.rot} ${s.shift} ${s.flip ? "-scale-x-100" : ""}`}
+      style={`left:${s.left}; margin-top:-1.25rem`}
+    />
+  ))}
+</div>

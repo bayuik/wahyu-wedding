@@ -1,0 +1,21 @@
+---
+import FloralImage from "./FloralImage.astro";
+
+interface Props {
+  class?: string;
+  tone?: "light" | "dark";
+}
+const { class: className = "", tone = "light" } = Astro.props;
+const line = tone === "dark" ? "bg-terracotta-300/50" : "bg-terracotta-500/40";
+const dot = tone === "dark" ? "bg-terracotta-300" : "bg-terracotta-500";
+---
+
+<div class={`flex items-center justify-center gap-3 px-6 ${className}`} aria-hidden="true">
+  <span class={`h-px w-12 sm:w-24 ${line}`}></span>
+  <span class={`h-1.5 w-1.5 rotate-45 ${dot}`}></span>
+  <FloralImage class="h-12 w-auto -scale-x-100 opacity-90 sm:h-16" />
+  <FloralImage class="h-16 w-auto opacity-95 sm:h-20" />
+  <FloralImage class="h-12 w-auto -scale-x-100 opacity-90 sm:h-16" />
+  <span class={`h-1.5 w-1.5 rotate-45 ${dot}`}></span>
+  <span class={`h-px w-12 sm:w-24 ${line}`}></span>
+</div>

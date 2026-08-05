@@ -1,0 +1,26 @@
+---
+import { Image } from "astro:assets";
+import petal from "../assets/floral/petal.png";
+
+const petals = [
+  { left: "6%", size: 30, duration: 14, delay: 0 },
+  { left: "18%", size: 20, duration: 11, delay: 3 },
+  { left: "34%", size: 26, duration: 16, delay: 6 },
+  { left: "52%", size: 18, duration: 12, delay: 1.5 },
+  { left: "68%", size: 28, duration: 15, delay: 8 },
+  { left: "84%", size: 22, duration: 13, delay: 4.5 },
+  { left: "94%", size: 16, duration: 10, delay: 9.5 },
+];
+---
+
+<div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+  {petals.map((p) => (
+    <Image
+      src={petal}
+      alt=""
+      width={80}
+      class="petal-fall opacity-0"
+      style={`left:${p.left}; width:${p.size}px; height:auto; animation-duration:${p.duration}s; animation-delay:${p.delay}s;`}
+    />
+  ))}
+</div>

@@ -1,0 +1,156 @@
+---
+import "../styles/global.css";
+import Cover from "../components/Cover.astro";
+import CoupleInfo from "../components/CoupleInfo.astro";
+import OurStory from "../components/OurStory.astro";
+import Gallery from "../components/Gallery.astro";
+import EventDetail from "../components/EventDetail.astro";
+import LiveStream from "../components/LiveStream.astro";
+import GiftSection from "../components/GiftSection.astro";
+import Closing from "../components/Closing.astro";
+import FloralImage from "../components/FloralImage.astro";
+import SectionBlend from "../components/SectionBlend.astro";
+import BotanicalPlate from "../components/BotanicalPlate.astro";
+import botanicalPattern from "../assets/floral/pattern-botanical.png";
+import Countdown from "../components/Countdown.tsx";
+import MusicToggle from "../components/MusicToggle.tsx";
+import RsvpForm from "../components/RsvpForm.tsx";
+import Guestbook from "../components/Guestbook.tsx";
+import { getGuestNameFromUrl } from "../lib/guest";
+
+// personalization needs the query string per-request, so this page is server-rendered
+export const prerender = false;
+
+const guestName = getGuestNameFromUrl(Astro.url);
+---
+
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bayu &amp; Natasya: Undangan Pernikahan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&family=Noto+Naskh+Arabic&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="overflow-hidden" style={`--botanical-pattern: url(${botanicalPattern.src})`}>
+    <Cover guestName={guestName} />
+
+    <main id="main-content" class="hidden">
+      <CoupleInfo />
+
+      <SectionBlend from="from-cream-100" to="to-dusty-100" />
+      <OurStory />
+
+      <SectionBlend from="from-dusty-100" to="to-cream-100" />
+      <Gallery />
+
+      <SectionBlend from="from-cream-100" to="to-dusty-900" height="h-52 sm:h-64" />
+
+      <section class="relative overflow-hidden bg-dusty-900 px-6 py-16">
+        <FloralImage class="pointer-events-none absolute -top-3 -left-5 h-32 w-auto opacity-80 sm:h-40" />
+        <FloralImage class="pointer-events-none absolute -right-5 -bottom-3 h-32 w-auto -scale-x-100 opacity-80 sm:h-40" />
+        <div class="relative z-10">
+          <p class="text-center text-xs tracking-[0.3em] text-dusty-100 uppercase" data-reveal>
+            Menuju Hari Bahagia
+          </p>
+          <div class="mt-8">
+            <Countdown client:load />
+          </div>
+        </div>
+      </section>
+
+      <EventDetail />
+
+      <SectionBlend from="from-dusty-900" to="to-cream-100" height="h-52 sm:h-64" />
+      <LiveStream />
+
+      <SectionBlend from="from-cream-100" to="to-dusty-100" />
+      <GiftSection />
+
+      <SectionBlend from="from-dusty-100" to="to-cream-100" />
+
+      <section class="bg-botanical relative overflow-hidden bg-cream-100 px-6 py-16 text-center">
+        <FloralImage class="pointer-events-none absolute -top-4 -left-6 h-36 w-auto opacity-85 sm:h-48" />
+        <FloralImage class="pointer-events-none absolute -right-6 -bottom-4 h-36 w-auto -scale-x-100 opacity-85 sm:h-48" />
+
+        <h2 class="font-display text-4xl text-dusty-900" data-reveal>Ucapan &amp; Doa</h2>
+        <div class="mx-auto mt-4 flex items-center justify-center gap-2" data-reveal>
+          <span class="h-px w-14 bg-terracotta-500/40"></span>
+          <FloralImage class="h-10 w-auto opacity-90" />
+          <span class="h-px w-14 bg-terracotta-500/40"></span>
+        </div>
+        <p class="mx-auto mt-4 max-w-md text-sm text-dusty-700" data-reveal>
+          Mohon konfirmasi kehadiran sekaligus titipkan ucapan &amp; doa untuk kami.
+        </p>
+
+        <div class="mx-auto mt-12 flex max-w-4xl items-start justify-center gap-8">
+          <BotanicalPlate plate="cluster" shape="arch" class="hidden h-80 w-48 shrink-0 lg:block" data-reveal="left" />
+
+          <div class="flex-1" data-reveal>
+            <RsvpForm guestName={guestName} client:load />
+          </div>
+
+          <BotanicalPlate plate="white" shape="arch" class="hidden h-80 w-48 shrink-0 lg:block" data-reveal="right" />
+        </div>
+
+        <Guestbook client:load />
+      </section>
+
+      <SectionBlend from="from-cream-100" to="to-dusty-900" height="h-52 sm:h-64" />
+      <Closing />
+    </main>
+
+    <MusicToggle client:load />
+
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          }
+        },
+        { threshold: 0.15 }
+      );
+
+      document.querySelectorAll("[data-reveal]").forEach((el) => observer.observe(el));
+
+      // parallax drift on decorative layers
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const layers = Array.from(
+        document.querySelectorAll<HTMLElement>("[data-parallax]")
+      );
+
+      if (!reduceMotion && layers.length > 0) {
+        let ticking = false;
+        const update = () => {
+          const mid = window.innerHeight / 2;
+          for (const el of layers) {
+            const speed = Number(el.dataset.parallax) || 0.12;
+            const rect = el.getBoundingClientRect();
+            const offset = (rect.top + rect.height / 2 - mid) * -speed;
+            el.style.setProperty("--parallax-y", `${offset.toFixed(1)}px`);
+          }
+          ticking = false;
+        };
+        window.addEventListener(
+          "scroll",
+          () => {
+            if (!ticking) {
+              ticking = true;
+              requestAnimationFrame(update);
+            }
+          },
+          { passive: true }
+        );
+        update();
+      }
+    </script>
+  </body>
+</html>

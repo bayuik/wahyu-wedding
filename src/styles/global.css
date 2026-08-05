@@ -1,0 +1,167 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Cormorant Garamond", serif;
+  --font-body: "Jost", sans-serif;
+  --font-arabic: "Noto Naskh Arabic", serif;
+
+  --color-dusty-50: #eef3f6;
+  --color-dusty-100: #d7e2e9;
+  --color-dusty-300: #a3bccb;
+  --color-dusty-500: #7b9eb3;
+  --color-dusty-700: #4f7186;
+  --color-dusty-900: #2e4653;
+
+  --color-terracotta-100: #f2ddce;
+  --color-terracotta-300: #dba07a;
+  --color-terracotta-500: #c1683c;
+  --color-terracotta-700: #954b28;
+
+  --color-cream-50: #fdfbf7;
+  --color-cream-100: #f7f0e4;
+  --color-cream-300: #ece0c8;
+
+  --color-ink: #2b2620;
+}
+
+body {
+  background-color: var(--color-cream-50);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+h1, h2, h3, .font-display {
+  font-family: var(--font-display);
+}
+
+/* botanical watermark laid over a section background */
+.bg-botanical {
+  position: relative;
+}
+.bg-botanical::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--botanical-pattern);
+  background-size: 380px auto;
+  background-repeat: repeat;
+  opacity: 0.55;
+  pointer-events: none;
+}
+.bg-botanical > * {
+  position: relative;
+}
+
+/* arch (mihrab) frame used for photos and floral plates */
+.arch {
+  border-radius: 50% 50% 8px 8px / 34% 34% 4px 4px;
+  overflow: hidden;
+}
+.arch-full {
+  border-radius: 50% 50% 50% 50% / 30% 30% 12% 12%;
+  overflow: hidden;
+}
+
+/* idle sway on floral corner illustrations */
+@keyframes sway {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+.animate-sway {
+  animation: sway 6s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes sway-slow {
+  0%, 100% { transform: rotate(1.5deg) translateY(0); }
+  50% { transform: rotate(-1.5deg) translateY(-6px); }
+}
+.animate-sway-slow {
+  animation: sway-slow 9s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+/* slow zoom/pan on framed photos and plates */
+@keyframes ken-burns {
+  0%, 100% { transform: scale(1) translate(0, 0); }
+  50% { transform: scale(1.09) translate(-1.5%, -1.5%); }
+}
+.animate-ken-burns {
+  animation: ken-burns 18s ease-in-out infinite;
+}
+
+/* soft pulsing glow behind focal elements */
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.06); }
+}
+.animate-glow {
+  animation: glow-pulse 7s ease-in-out infinite;
+}
+
+/* gentle vertical drift for decorative sprigs */
+@keyframes drift {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(3deg); }
+}
+.animate-drift {
+  animation: drift 8s ease-in-out infinite;
+}
+
+/* ambient falling petals in the hero */
+@keyframes petal-fall {
+  0%   { transform: translate(0, -10vh) rotate(0deg); opacity: 0; }
+  10%  { opacity: 0.85; }
+  50%  { transform: translate(18px, 50vh) rotate(180deg); }
+  90%  { opacity: 0.85; }
+  100% { transform: translate(-14px, 115vh) rotate(360deg); opacity: 0; }
+}
+.petal-fall {
+  position: absolute;
+  top: 0;
+  animation-name: petal-fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+/* scroll reveal, with directional variants */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+[data-reveal="left"]  { transform: translateX(-46px); }
+[data-reveal="right"] { transform: translateX(46px); }
+[data-reveal="zoom"]  { transform: scale(0.88); }
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translate(0, 0) scale(1);
+}
+
+/* parallax layers, offset driven by JS custom property */
+[data-parallax] {
+  will-change: transform;
+  transform: translateY(var(--parallax-y, 0px));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .petal-fall {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+  .animate-sway,
+  .animate-sway-slow,
+  .animate-ken-burns,
+  .animate-glow,
+  .animate-drift {
+    animation: none !important;
+  }
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  [data-parallax] {
+    transform: none !important;
+  }
+}

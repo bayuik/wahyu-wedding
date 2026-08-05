@@ -1,0 +1,68 @@
+---
+import FloralImage from "./FloralImage.astro";
+const links = {
+  youtube: "", // full watch URL, embed derived below
+  instagram: "",
+  tiktok: "",
+};
+
+const youtubeEmbed = links.youtube
+  ? links.youtube.replace("watch?v=", "embed/")
+  : null;
+---
+
+<section class="bg-botanical relative overflow-hidden bg-cream-100 px-6 py-16 text-center">
+  <FloralImage class="pointer-events-none absolute -top-4 -right-6 h-36 w-auto -scale-x-100 opacity-85 sm:h-48" />
+  <FloralImage class="pointer-events-none absolute -bottom-4 -left-6 h-36 w-auto rotate-180 opacity-85 sm:h-48" />
+
+  <h2 class="font-display text-4xl text-dusty-900" data-reveal>Live Streaming</h2>
+  <div class="mx-auto mt-4 flex items-center justify-center gap-2" data-reveal>
+    <span class="h-px w-14 bg-terracotta-500/40"></span>
+    <FloralImage class="h-10 w-auto opacity-90" />
+    <span class="h-px w-14 bg-terracotta-500/40"></span>
+  </div>
+  <p class="mx-auto mt-3 max-w-md text-sm text-dusty-700" data-reveal>
+    Buat yang belum bisa hadir langsung, ikuti acara lewat live streaming di bawah ini.
+  </p>
+
+  <div class="mx-auto mt-10 max-w-2xl" data-reveal>
+    {youtubeEmbed ? (
+      <div class="aspect-video overflow-hidden rounded-xl">
+        <iframe
+          class="h-full w-full"
+          src={youtubeEmbed}
+          title="Live Streaming Akad & Resepsi"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+    ) : (
+      <div class="rounded-xl border border-dashed border-dusty-300 p-10 text-sm text-dusty-700">
+        Link YouTube live belum diisi, isi <code>links.youtube</code> di komponen ini H-1.
+      </div>
+    )}
+
+    <p class="mt-6 text-xs text-dusty-700">
+      Instagram Live dan TikTok Live tidak bisa di-embed langsung di halaman ini (limitasi platform),
+      tonton via tombol berikut saat acara berlangsung:
+    </p>
+    <div class="mt-4 flex flex-wrap justify-center gap-3">
+      <a
+        href={links.instagram || "#"}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="rounded-full bg-terracotta-500 px-5 py-2 text-xs tracking-widest text-cream-50 uppercase hover:bg-terracotta-700"
+      >
+        Tonton di Instagram
+      </a>
+      <a
+        href={links.tiktok || "#"}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="rounded-full bg-dusty-700 px-5 py-2 text-xs tracking-widest text-cream-50 uppercase hover:bg-dusty-900"
+      >
+        Tonton di TikTok
+      </a>
+    </div>
+  </div>
+</section>

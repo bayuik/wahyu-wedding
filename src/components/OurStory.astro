@@ -1,0 +1,57 @@
+---
+import FloralImage from "./FloralImage.astro";
+import BotanicalPlate from "./BotanicalPlate.astro";
+
+const moments = [
+  {
+    title: "💼 Awal Pertemuan Sederhana",
+    plate: "cluster" as const,
+    text: "Semua bermula pada 12 Desember 2024. Sebuah ajakan hangout sederhana mempertemukan dua hati yang belum saling mengenal. Di tengah keramaian Kuningan City, Bayu dan Natasya bertemu untuk pertama kalinya. Tak ada yang istimewa, hanya percakapan ringan dan tawa yang mengalir begitu saja. Namun dari momen itulah, segalanya perlahan berubah. Mereka mulai saling bertukar cerita, sesekali bertemu, dan menikmati waktu bersama. Dari pertemuan yang sederhana, tumbuh rasa yang tulus: pelan, namun pasti.",
+  },
+  {
+    title: "💞 Diantara Waktu dan Jarak",
+    plate: "wild" as const,
+    text: "Natasya pergi ke luar negeri untuk bekerja. Jarak terbentang, waktu pun berbeda empat jam. Mereka tak bisa sering bertemu, tapi selalu menemukan cara untuk tetap terhubung. Meski hanya lewat layar, mereka tetap saling menguatkan di sela kesibukan. Bagi mereka, yang penting bukan jaraknya, tapi komitmennya.",
+  },
+  {
+    title: "💍 Akhirnya, Kami di Sini",
+    plate: "bloom" as const,
+    text: "Setelah waktu dan jarak terlewati, mereka tak lagi berjalan sendiri. Kini, mereka sepakat untuk melangkah bersama, dalam perjalanan yang lebih dari sekadar cinta. Dan di momen yang penuh arti ini, mereka mengundangmu untuk hadir dan turut menyempurnakan kebahagiaan mereka.",
+  },
+];
+---
+
+<section class="bg-botanical relative overflow-hidden bg-dusty-100 px-6 py-16">
+  <FloralImage class="pointer-events-none absolute -top-4 -right-6 h-40 w-auto -scale-x-100 opacity-85 sm:h-52" />
+  <FloralImage class="pointer-events-none absolute -bottom-4 -left-6 h-40 w-auto rotate-180 opacity-85 sm:h-52" />
+
+  <h2 class="font-display text-center text-4xl text-dusty-900" data-reveal>Cerita di Balik Janji</h2>
+  <div class="mx-auto mt-4 flex items-center justify-center gap-2" data-reveal>
+    <span class="h-px w-14 bg-terracotta-500/40"></span>
+    <FloralImage class="h-10 w-auto opacity-90" />
+    <span class="h-px w-14 bg-terracotta-500/40"></span>
+  </div>
+
+  <div class="mx-auto mt-14 flex max-w-4xl flex-col gap-14">
+    {moments.map((m, i) => (
+      <div
+        class={`flex flex-col items-center gap-6 sm:gap-10 ${i % 2 === 1 ? "sm:flex-row-reverse" : "sm:flex-row"}`}
+      >
+        <BotanicalPlate
+          plate={m.plate}
+          shape="arch"
+          class="h-52 w-40 shrink-0 sm:h-60 sm:w-44"
+          data-reveal={i % 2 === 1 ? "right" : "left"}
+        />
+
+        <div class="flex-1 text-center sm:text-left" data-reveal={i % 2 === 1 ? "left" : "right"}>
+          <span class="font-display inline-flex h-9 w-9 items-center justify-center rounded-full bg-terracotta-500 text-cream-50">
+            {i + 1}
+          </span>
+          <h3 class="mt-3 text-lg font-semibold text-dusty-900">{m.title}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-dusty-700">{m.text}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

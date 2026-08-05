@@ -1,0 +1,48 @@
+---
+import { Image } from "astro:assets";
+import whiteRose from "../assets/floral/plate-white-rose.jpg";
+import pinkCluster from "../assets/floral/plate-pink-cluster.jpg";
+import wildRose from "../assets/floral/plate-wild-rose.jpg";
+import fullBloom from "../assets/floral/plate-full-bloom.jpg";
+
+const plates = {
+  white: whiteRose,
+  cluster: pinkCluster,
+  wild: wildRose,
+  bloom: fullBloom,
+};
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  plate?: keyof typeof plates;
+  class?: string;
+  shape?: "arch" | "arch-full" | "circle" | "rounded";
+  kenBurns?: boolean;
+}
+
+const {
+  plate = "cluster",
+  class: className = "",
+  shape = "arch",
+  kenBurns = true,
+  ...rest
+} = Astro.props;
+
+const shapeClass =
+  shape === "circle"
+    ? "rounded-full overflow-hidden"
+    : shape === "rounded"
+      ? "rounded-2xl overflow-hidden"
+      : shape === "arch-full"
+        ? "arch-full"
+        : "arch";
+---
+
+<div class={`${shapeClass} bg-cream-100 ring-1 ring-terracotta-300/40 shadow-lg ${className}`} {...rest}>
+  <Image
+    src={plates[plate]}
+    alt=""
+    width={720}
+    class={`h-full w-full object-cover ${kenBurns ? "animate-ken-burns" : ""}`}
+    aria-hidden="true"
+  />
+</div>

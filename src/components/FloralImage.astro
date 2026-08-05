@@ -1,0 +1,19 @@
+---
+import { Image } from "astro:assets";
+import peachBlossom from "../assets/floral/peach-blossom.png";
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  class?: string;
+}
+const { class: className = "", ...rest } = Astro.props;
+---
+
+<span class={`inline-block ${className}`} {...rest}>
+  <Image
+    src={peachBlossom}
+    alt=""
+    width={240}
+    class="animate-sway block h-full w-auto"
+    aria-hidden="true"
+  />
+</span>

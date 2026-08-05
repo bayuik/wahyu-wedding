@@ -1,0 +1,39 @@
+---
+import FloralImage from "./FloralImage.astro";
+import BotanicalPlate from "./BotanicalPlate.astro";
+---
+
+<section class="bg-botanical relative overflow-hidden bg-cream-100 px-6 py-16 text-center">
+  <FloralImage class="pointer-events-none absolute -top-4 -left-6 h-36 w-auto opacity-85 sm:h-48" />
+  <FloralImage class="pointer-events-none absolute -right-6 -bottom-4 h-36 w-auto -scale-x-100 opacity-85 sm:h-48" />
+
+  <h2 class="font-display text-4xl text-dusty-900" data-reveal>Galeri</h2>
+  <div class="mx-auto mt-4 flex items-center justify-center gap-2" data-reveal>
+    <span class="h-px w-14 bg-terracotta-500/40"></span>
+    <FloralImage class="h-10 w-auto opacity-90" />
+    <span class="h-px w-14 bg-terracotta-500/40"></span>
+  </div>
+  <p class="mx-auto mt-3 max-w-md text-sm text-dusty-700" data-reveal>
+    Slot bertanda adalah tempat foto prewedding, ganti isinya di src/assets/photos/
+  </p>
+
+  <!-- mosaic: mixes framed botanical art with photo slots -->
+  <div class="mx-auto mt-12 grid max-w-4xl auto-rows-[9rem] grid-cols-2 gap-3 sm:auto-rows-[11rem] sm:grid-cols-4">
+    <div class="col-span-2 row-span-2 rounded-2xl bg-dusty-100 ring-1 ring-terracotta-300/30" data-reveal="zoom" data-gallery-item></div>
+
+    <BotanicalPlate plate="cluster" shape="rounded" class="h-full w-full" data-reveal="zoom" />
+
+    <div class="rounded-2xl bg-dusty-100 ring-1 ring-terracotta-300/30" data-reveal="zoom" data-gallery-item style="transition-delay:80ms"></div>
+
+    <div class="col-span-2 rounded-2xl bg-dusty-100 ring-1 ring-terracotta-300/30" data-reveal="zoom" data-gallery-item style="transition-delay:120ms"></div>
+
+    <BotanicalPlate plate="white" shape="rounded" class="row-span-2 h-full w-full" data-reveal="zoom" />
+
+    <div class="rounded-2xl bg-dusty-100 ring-1 ring-terracotta-300/30" data-reveal="zoom" data-gallery-item style="transition-delay:160ms"></div>
+    <div class="rounded-2xl bg-dusty-100 ring-1 ring-terracotta-300/30" data-reveal="zoom" data-gallery-item style="transition-delay:200ms"></div>
+
+    <BotanicalPlate plate="wild" shape="rounded" class="h-full w-full" data-reveal="zoom" />
+
+    <div class="col-span-2 rounded-2xl bg-dusty-100 ring-1 ring-terracotta-300/30" data-reveal="zoom" data-gallery-item style="transition-delay:240ms"></div>
+  </div>
+</section>
