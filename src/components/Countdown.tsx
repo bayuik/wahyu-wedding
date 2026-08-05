@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const WEDDING_DATE = new Date("2026-11-08T08:00:00+07:00");
+const WEDDING_DATE = new Date("2025-04-09T08:00:00+07:00");
 
 function getRemaining() {
   const diff = WEDDING_DATE.getTime() - Date.now();

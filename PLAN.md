@@ -15,7 +15,12 @@ Reference: viding.com-style digital invitation (wennyfarrel.viding.com, site unr
 Mini PC udah punya Postgres 16 jalan di Docker (`~/docker/odoo-postgres/`, shared instance buat semua Odoo, lihat [[Mini PC Setup/tools/postgresql|postgresql]]). Pakai instance yang sama, bikin DB baru di dalamnya, gak perlu container terpisah.
 
 1. **Dev (sekarang)**: schema didesain pakai **Drizzle ORM** (portable), connect ke DB baru `wedding_dev` di instance Postgres mini PC yang udah ada. Kalau dev di laptop terpisah dari mini PC, connect via IP LAN (`postgresql://user:pass@<ip-mini-pc>:5432/wedding_dev`) atau Tailscale kalau udah ada, cek port 5432 ke-expose ke jaringan lokal di compose file-nya (default docker-compose Odoo biasanya cuma bind ke localhost mini PC, mungkin perlu ubah `ports:` jadi `0.0.0.0:5432:5432` atau tambah Tailscale).
-2. **Production (nanti, pas mau go-live ke tamu beneran)**: keputusan pending. Kalau mau tetap self-host, mini PC harus always-on plus expose lewat Cloudflare Tunnel/Tailscale Funnel supaya endpoint `/api/rsvp` di Vercel bisa nembak DB pas hari-H (traffic concurrent tamu buka undangan). Risikonya nempel ke uptime internet rumah. Alternatif lebih aman buat hari-H: pas mau launch, `pg_dump` dari mini PC, restore ke hosted Postgres gratis (Neon) cuma buat masa aktif undangan, mini PC tetap jadi sumber dev/staging. Putuskan pas udah deket tanggal.
+2. **Production (diputuskan)**: tetap self-host di mini PC, lewat tunnel Cloudflare yang udah ada (`odoo19-ce`, awalnya cuma buat `internal.bayuik.com` ke Odoo). Vercel gak bisa connect raw Postgres protocol ke tunnel (Cloudflare Tunnel gratis cuma buat HTTP, raw TCP publik butuh Spectrum berbayar), jadi ditaruh **PostgREST** di depan Postgres:
+   - Role Postgres terbatas `wedding_api`: cuma `INSERT` ke `rsvp` & `wishes`, `SELECT` ke view `wishes_public` (filter `approved = true`). Gak bisa baca tabel mentah.
+   - Container `wedding-api` (image `postgrest/postgrest`) nambah di `~/docker/odoo-postgres/docker-compose.yml`, port `8021` di host.
+   - Ingress baru di tunnel: `api.natasya.bayuik.com` → `http://localhost:8021`, jalan bareng ingress Odoo yang lama, satu tunnel aja.
+   - Kode `/api/rsvp` & `/api/wishes` di-refactor lewat `src/lib/repo.ts`: kalau env `POSTGREST_URL` ke-set (production di Vercel), fetch ke PostgREST; kalau enggak (dev di mini PC), tetap Drizzle langsung ke `localhost:5432` kayak biasa. Gak ada perubahan behavior pas dev.
+   - Risiko yang disadari: RSVP tamu bergantung mini PC + internet rumah nyala terus pas hari-H. Diterima, gak pindah ke Neon.
 
 ### Schema kasar
 

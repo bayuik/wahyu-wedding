@@ -4,7 +4,7 @@ interface Wish {
   id: number;
   name: string;
   message: string;
-  createdAt: string;
+  created_at: string;
 }
 
 export default function Guestbook() {
