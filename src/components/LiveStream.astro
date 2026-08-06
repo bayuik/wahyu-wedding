@@ -1,7 +1,8 @@
 ---
+import { t } from "../lib/i18n";
 import FloralImage from "./FloralImage.astro";
 const links = {
-  youtube: "https://www.youtube.com/watch?v=tAIiXRZNh9E&t=2399s", // full watch URL, embed derived below
+  youtube: "https://www.youtube.com/watch?v=tAIiXRZNh9E&t=2399s", // full watch URL, embed derived below. Kosongkan kalau belum siap: tamu akan lihat pesan netral, bukan instruksi kode.
   instagram: "https://www.instagram.com/tasyanwr/",
   tiktok: "https://www.tiktok.com/@byu.ik",
 };
@@ -51,14 +52,14 @@ const youtubeEmbed = toYoutubeEmbed(links.youtube);
   <FloralImage class="pointer-events-none absolute -top-4 -right-6 h-36 w-auto -scale-x-100 opacity-85 sm:h-48" />
   <FloralImage class="pointer-events-none absolute -bottom-4 -left-6 h-36 w-auto rotate-180 opacity-85 sm:h-48" />
 
-  <h2 class="font-display text-4xl text-dusty-900" data-reveal>Live Streaming</h2>
+  <h2 class="font-display text-4xl text-dusty-900" data-reveal data-i18n="live.title">{t("live.title")}</h2>
   <div class="mx-auto mt-4 flex items-center justify-center gap-2" data-reveal>
     <span class="h-px w-14 bg-terracotta-500/40"></span>
     <FloralImage class="h-10 w-auto opacity-90" />
     <span class="h-px w-14 bg-terracotta-500/40"></span>
   </div>
-  <p class="mx-auto mt-3 max-w-md text-sm text-dusty-700" data-reveal>
-    Buat yang belum bisa hadir langsung, ikuti acara lewat live streaming di bawah ini.
+  <p class="mx-auto mt-3 max-w-md text-sm text-dusty-700" data-reveal data-i18n="live.intro">
+    {t("live.intro")}
   </p>
 
   <div class="mx-auto mt-10 max-w-2xl" data-reveal>
@@ -74,13 +75,12 @@ const youtubeEmbed = toYoutubeEmbed(links.youtube);
       </div>
     ) : (
       <div class="rounded-xl border border-dashed border-dusty-300 p-10 text-sm text-dusty-700">
-        Link YouTube live belum diisi, isi <code>links.youtube</code> di komponen ini H-1.
+        <span data-i18n="live.empty">{t("live.empty")}</span>
       </div>
     )}
 
-    <p class="mt-6 text-xs text-dusty-700">
-      Instagram Live dan TikTok Live tidak bisa di-embed langsung di halaman ini (limitasi platform),
-      tonton via tombol berikut saat acara berlangsung:
+    <p class="mt-6 text-xs text-dusty-700" data-i18n="live.note">
+      {t("live.note")}
     </p>
     <div class="mt-4 flex flex-wrap justify-center gap-3">
       <a
@@ -89,7 +89,7 @@ const youtubeEmbed = toYoutubeEmbed(links.youtube);
         rel="noopener noreferrer"
         class="rounded-full bg-terracotta-500 px-5 py-2 text-xs tracking-widest text-cream-50 uppercase hover:bg-terracotta-700"
       >
-        Tonton di Instagram
+        <span data-i18n="live.ig">{t("live.ig")}</span>
       </a>
       <a
         href={links.tiktok || "#"}
@@ -97,7 +97,7 @@ const youtubeEmbed = toYoutubeEmbed(links.youtube);
         rel="noopener noreferrer"
         class="rounded-full bg-dusty-700 px-5 py-2 text-xs tracking-widest text-cream-50 uppercase hover:bg-dusty-900"
       >
-        Tonton di TikTok
+        <span data-i18n="live.tiktok">{t("live.tiktok")}</span>
       </a>
     </div>
   </div>

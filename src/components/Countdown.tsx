@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useLang } from "../lib/useLang";
 
 const WEDDING_DATE = new Date("2025-04-09T08:00:00+07:00");
 
@@ -15,6 +16,7 @@ function getRemaining() {
 
 export default function Countdown() {
   // start null so server-rendered markup has no time-dependent value to mismatch on hydration
+  const [, t] = useLang();
   const [remaining, setRemaining] = useState<ReturnType<typeof getRemaining> | null>(null);
 
   useEffect(() => {
@@ -24,10 +26,10 @@ export default function Countdown() {
   }, []);
 
   const units: [string, number][] = [
-    ["Hari", remaining?.days ?? 0],
-    ["Jam", remaining?.hours ?? 0],
-    ["Menit", remaining?.minutes ?? 0],
-    ["Detik", remaining?.seconds ?? 0],
+    [t("countdown.days"), remaining?.days ?? 0],
+    [t("countdown.hours"), remaining?.hours ?? 0],
+    [t("countdown.minutes"), remaining?.minutes ?? 0],
+    [t("countdown.seconds"), remaining?.seconds ?? 0],
   ];
 
   return (
@@ -43,3 +45,4 @@ export default function Countdown() {
     </div>
   );
 }
+

@@ -1,0 +1,236 @@
+---
+import "../styles/global.css";
+import { isAuthed, isConfigured, verifyPassword, login, logout } from "../lib/admin-auth";
+import { listRsvps, summarise, listAllWishes } from "../lib/admin-repo";
+
+export const prerender = false;
+
+const { cookies, request, url } = Astro;
+
+let error: string | null = null;
+
+if (request.method === "POST") {
+  const form = await request.formData();
+
+  if (form.get("action") === "logout") {
+    logout(cookies);
+    return Astro.redirect("/admin");
+  }
+
+  const password = String(form.get("password") ?? "");
+  if (isConfigured() && verifyPassword(password)) {
+    login(cookies);
+    return Astro.redirect("/admin");
+  }
+  error = "Password salah.";
+}
+
+const authed = isAuthed(cookies);
+
+let rsvps: Awaited<ReturnType<typeof listRsvps>> = [];
+let wishList: Awaited<ReturnType<typeof listAllWishes>> = [];
+let stats = { responses: 0, attending: 0, notAttending: 0, maybe: 0, totalPax: 0 };
+let loadError: string | null = null;
+
+if (authed) {
+  try {
+    rsvps = await listRsvps();
+    wishList = await listAllWishes();
+    stats = summarise(rsvps);
+  } catch (e) {
+    loadError = e instanceof Error ? e.message : String(e);
+  }
+}
+
+const fmt = new Intl.DateTimeFormat("id-ID", {
+  dateStyle: "medium",
+  timeStyle: "short",
+  timeZone: "Asia/Jakarta",
+});
+
+const labels: Record<string, string> = {
+  hadir: "Datang",
+  tidak: "Berhalangan",
+  maybe: "Masih ragu",
+};
+---
+
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Dashboard RSVP</title>
+  </head>
+  <!-- global.css sets a cream body background as a plain rule, which outranks
+       Tailwind utilities, so the dark surface lives on a wrapper instead -->
+  <body class="m-0">
+    <div class="min-h-screen bg-dusty-900 px-4 py-10 text-cream-50">
+      <main class="mx-auto max-w-5xl">
+      <header class="flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h1 class="font-display text-3xl">Dashboard RSVP</h1>
+          <p class="mt-1 text-sm text-dusty-100">Bayu &amp; Natasya</p>
+        </div>
+        {authed && (
+          <form method="POST">
+            <input type="hidden" name="action" value="logout" />
+            <button
+              class="rounded-full border border-terracotta-300 px-4 py-2 text-xs tracking-widest uppercase text-terracotta-300 hover:bg-terracotta-300 hover:text-dusty-900"
+            >
+              Keluar
+            </button>
+          </form>
+        )}
+      </header>
+
+      {!authed && (
+        <form method="POST" class="mx-auto mt-16 max-w-sm rounded-2xl border border-dusty-700 bg-dusty-900/60 p-8">
+          <label class="flex flex-col gap-2 text-sm">
+            Password
+            <input
+              type="password"
+              name="password"
+              required
+              autofocus
+              class="rounded-lg border border-dusty-700 bg-dusty-900 px-3 py-2 text-cream-50 outline-none focus:border-terracotta-300"
+            />
+          </label>
+          <button
+            class="mt-5 w-full rounded-full bg-terracotta-500 px-6 py-2.5 text-sm tracking-widest uppercase hover:bg-terracotta-700"
+          >
+            Masuk
+          </button>
+          {error && <p class="mt-4 text-sm text-terracotta-300">{error}</p>}
+          {!isConfigured() && (
+            <p class="mt-4 text-xs text-dusty-100">
+              ADMIN_PASSWORD belum diset di .env, jadi login belum bisa dipakai.
+            </p>
+          )}
+        </form>
+      )}
+
+      {authed && loadError && (
+        <p class="mt-10 rounded-xl border border-terracotta-300/50 bg-dusty-900/60 p-6 text-sm text-terracotta-300">
+          {loadError}
+        </p>
+      )}
+
+      {authed && !loadError && (
+        <>
+          <section class="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-5">
+            {[
+              ["Total respons", stats.responses],
+              ["Datang", stats.attending],
+              ["Berhalangan", stats.notAttending],
+              ["Masih ragu", stats.maybe],
+              ["Jumlah orang", stats.totalPax],
+            ].map(([label, value], i) => (
+              <div
+                class={`rounded-2xl border p-5 ${i === 4 ? "border-terracotta-300 bg-terracotta-500/25" : "border-dusty-700 bg-dusty-700/25"}`}
+              >
+                <p class={`text-xs tracking-wide uppercase ${i === 4 ? "text-terracotta-300" : "text-dusty-100"}`}>
+                  {label}
+                </p>
+                <p class="font-display mt-2 text-4xl text-cream-50">{value}</p>
+              </div>
+            ))}
+          </section>
+          <p class="mt-3 text-xs text-dusty-100">
+            "Jumlah orang" menjumlahkan pax dari yang menjawab Datang, ini angka untuk katering.
+          </p>
+
+          <section class="mt-12">
+            <h2 class="font-display text-2xl">Daftar RSVP</h2>
+            {rsvps.length === 0 ? (
+              <p class="mt-4 text-sm text-dusty-100">Belum ada yang mengisi.</p>
+            ) : (
+              <div class="mt-4 overflow-x-auto rounded-2xl border border-dusty-700">
+                <table class="w-full min-w-[34rem] text-left text-sm">
+                  <thead class="bg-dusty-900/80 text-xs tracking-wide text-dusty-100 uppercase">
+                    <tr>
+                      <th class="px-4 py-3">Nama</th>
+                      <th class="px-4 py-3">Kehadiran</th>
+                      <th class="px-4 py-3">Pax</th>
+                      <th class="px-4 py-3">Waktu</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {rsvps.map((r) => (
+                      <tr class="border-t border-dusty-700/70">
+                        <td class="px-4 py-3">{r.name}</td>
+                        <td class="px-4 py-3">{labels[r.attendance] ?? r.attendance}</td>
+                        <td class="px-4 py-3">{r.attendance === "hadir" ? r.pax : "-"}</td>
+                        <td class="px-4 py-3 text-dusty-100">{fmt.format(r.createdAt)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </section>
+
+          <section class="mt-12 pb-16">
+            <h2 class="font-display text-2xl">Ucapan</h2>
+            <p class="mt-1 text-sm text-dusty-100">
+              Sembunyikan ucapan yang tidak pantas. Yang disembunyikan hilang dari undangan tamu,
+              tapi tidak dihapus dari database.
+            </p>
+
+            {wishList.length === 0 ? (
+              <p class="mt-4 text-sm text-dusty-100">Belum ada ucapan.</p>
+            ) : (
+              <ul class="mt-5 flex flex-col gap-3">
+                {wishList.map((w) => (
+                  <li
+                    class={`rounded-2xl border p-5 ${w.approved ? "border-dusty-700 bg-dusty-900/60" : "border-terracotta-300/40 bg-dusty-900/30 opacity-60"}`}
+                    data-wish-row={w.id}
+                  >
+                    <div class="flex flex-wrap items-start justify-between gap-3">
+                      <div class="flex-1">
+                        <p class="font-semibold">{w.name}</p>
+                        <p class="mt-1 text-sm text-dusty-100">{w.message}</p>
+                        <p class="mt-2 text-xs text-dusty-100/70">{fmt.format(w.createdAt)}</p>
+                      </div>
+                      <button
+                        type="button"
+                        class="wish-toggle shrink-0 rounded-full border border-terracotta-300 px-4 py-1.5 text-xs tracking-widest uppercase text-terracotta-300 hover:bg-terracotta-300 hover:text-dusty-900"
+                        data-id={w.id}
+                        data-approved={String(w.approved)}
+                      >
+                        {w.approved ? "Sembunyikan" : "Tampilkan"}
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
+        </>
+      )}
+      </main>
+    </div>
+
+    <script>
+      document.querySelectorAll<HTMLButtonElement>(".wish-toggle").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          const id = Number(btn.dataset.id);
+          const next = btn.dataset.approved !== "true";
+          btn.disabled = true;
+          try {
+            const res = await fetch("/api/admin/wish", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ id, approved: next }),
+            });
+            if (!res.ok) throw new Error(String(res.status));
+            location.reload();
+          } catch {
+            btn.disabled = false;
+            btn.textContent = "Gagal, coba lagi";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

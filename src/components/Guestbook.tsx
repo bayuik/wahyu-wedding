@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useLang } from "../lib/useLang";
 
 interface Wish {
   id: number;
@@ -7,15 +8,34 @@ interface Wish {
   created_at: string;
 }
 
+/**
+ * List of guest wishes.
+ *
+ * The database is self-hosted on a mini PC that is not always switched on, so
+ * every failure path here hides the section instead of showing an error.
+ *
+ * "Unavailable" and "no wishes yet" are kept separate on purpose: falling back
+ * to the empty-state text would tell guests that nobody has written anything,
+ * which is a different and misleading claim.
+ */
 export default function Guestbook() {
+  const [, t] = useLang();
   const [wishes, setWishes] = useState<Wish[]>([]);
   const [loading, setLoading] = useState(true);
+  const [unavailable, setUnavailable] = useState(false);
 
   const load = () => {
     fetch("/api/wishes")
-      .then((res) => res.json())
-      .then((data) => setWishes(data.wishes ?? []))
-      .catch(() => {})
+      .then((res) => (res.ok ? res.json() : Promise.reject(new Error(String(res.status)))))
+      .then((data) => {
+        if (data?.unavailable) {
+          setUnavailable(true);
+          return;
+        }
+        setUnavailable(false);
+        setWishes(data.wishes ?? []);
+      })
+      .catch(() => setUnavailable(true))
       .finally(() => setLoading(false));
   };
 
@@ -25,9 +45,10 @@ export default function Guestbook() {
     return () => document.removeEventListener("wishes:refresh", load);
   }, []);
 
-  if (loading) return null;
+  if (loading || unavailable) return null;
+
   if (wishes.length === 0) {
-    return <p className="text-center text-sm text-dusty-700">Jadi yang pertama kirim ucapan.</p>;
+    return <p className="text-center text-sm text-dusty-700">{t("rsvp.empty")}</p>;
   }
 
   return (

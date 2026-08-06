@@ -1,4 +1,5 @@
 ---
+import { t } from "../lib/i18n";
 import FloralImage from "./FloralImage.astro";
 import BotanicalPlate from "./BotanicalPlate.astro";
 const accounts = [
@@ -12,14 +13,14 @@ const ewallets = ["GoPay", "OVO", "DANA"];
   <FloralImage class="pointer-events-none absolute -top-4 -left-6 h-36 w-auto opacity-85 sm:h-48" />
   <FloralImage class="pointer-events-none absolute -right-6 -bottom-4 h-36 w-auto -scale-x-100 opacity-85 sm:h-48" />
 
-  <h2 class="font-display text-4xl text-dusty-900" data-reveal>Love Gift</h2>
+  <h2 class="font-display text-4xl text-dusty-900" data-reveal data-i18n="gift.title">{t("gift.title")}</h2>
   <div class="mx-auto mt-4 flex items-center justify-center gap-2" data-reveal>
     <span class="h-px w-14 bg-terracotta-500/40"></span>
     <FloralImage class="h-10 w-auto opacity-90" />
     <span class="h-px w-14 bg-terracotta-500/40"></span>
   </div>
-  <p class="mx-auto mt-4 max-w-md text-sm text-dusty-700" data-reveal>
-    Dengan hormat, bagi Anda yang ingin memberikan tanda kasih kepada kami, dapat melalui:
+  <p class="mx-auto mt-4 max-w-md text-sm text-dusty-700" data-reveal data-i18n="gift.intro">
+    {t("gift.intro")}
   </p>
 
   <BotanicalPlate plate="bloom" shape="arch" class="mx-auto mt-10 h-44 w-32 sm:h-52 sm:w-40" data-reveal="zoom" />
@@ -35,7 +36,7 @@ const ewallets = ["GoPay", "OVO", "DANA"];
           class="copy-btn mt-4 rounded-full border border-terracotta-500 px-4 py-1.5 text-xs uppercase text-terracotta-500 transition hover:bg-terracotta-500 hover:text-cream-50"
           data-copy-value={a.number}
         >
-          Salin Nomor
+          <span data-i18n="gift.copy">{t("gift.copy")}</span>
         </button>
       </div>
     ))}

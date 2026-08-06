@@ -1,0 +1,24 @@
+---
+/**
+ * Wedding hashtag, styled the way the reference invitation does it: the letters
+ * that stand in for a name are uppercase and bright, the rest of the word stays
+ * lowercase and dimmed, so "our destination" is still readable as a phrase.
+ *
+ * #BAYourdestiNATion  ->  BAY(u) + "our destination" + NAT(asya)
+ */
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  class?: string;
+  tone?: "light" | "dark";
+}
+const { class: className = "", tone = "dark", ...rest } = Astro.props;
+
+// "dark" means sitting on the dark dusty background
+const nameColor = tone === "dark" ? "text-cream-50" : "text-dusty-900";
+const restColor = tone === "dark" ? "text-dusty-100/70" : "text-dusty-700/70";
+---
+
+<p class={`tracking-wide ${restColor} ${className}`} {...rest}>
+  #<span class={`font-medium ${nameColor}`}>BAY</span>ourdesti<span
+    class={`font-medium ${nameColor}`}>NAT</span
+  >ion
+</p>

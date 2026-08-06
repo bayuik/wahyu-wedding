@@ -1,0 +1,62 @@
+---
+/**
+ * Source layout for the social share image (public/og.jpg), sized to 1200x630.
+ *
+ * It is a real page so the screenshot uses the exact same fonts, palette and
+ * floral assets as the invitation. Regenerate with:
+ *   node scripts/make-og.mjs   (dev server must be running)
+ */
+import "../styles/global.css";
+import FloralImage from "../components/FloralImage.astro";
+import BotanicalPlate from "../components/BotanicalPlate.astro";
+import WeddingHashtag from "../components/WeddingHashtag.astro";
+import { t } from "../lib/i18n";
+
+export const prerender = false;
+---
+
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <title>OG image source</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="m-0 overflow-hidden bg-dusty-900">
+    <div
+      id="og-card"
+      class="relative flex h-[630px] w-[1200px] items-center justify-center overflow-hidden bg-dusty-900 text-cream-50"
+    >
+      <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-dusty-900 via-dusty-700/40 to-dusty-900"></div>
+
+      <FloralImage class="pointer-events-none absolute -top-10 -left-12 h-72 w-auto" />
+      <FloralImage class="pointer-events-none absolute -top-8 -right-12 h-64 w-auto -scale-x-100" />
+      <FloralImage class="pointer-events-none absolute -bottom-12 -left-10 h-64 w-auto rotate-180" />
+      <FloralImage class="pointer-events-none absolute -right-10 -bottom-12 h-72 w-auto rotate-180 -scale-x-100" />
+
+      <div class="relative z-10 flex items-center gap-14">
+        <BotanicalPlate plate="white" shape="arch" class="h-[420px] w-[300px]" kenBurns={false} />
+
+        <div class="flex flex-col items-start">
+          <p class="font-display text-xl tracking-wide text-dusty-100">
+            {t("cover.invite")}
+          </p>
+          <h1 class="font-display mt-3 text-7xl leading-none">Bayu</h1>
+          <p class="font-display my-1 text-4xl text-terracotta-300">&amp;</p>
+          <h1 class="font-display text-7xl leading-none">Natasya</h1>
+
+          <div class="mt-6 flex items-center gap-4">
+            <span class="h-px w-14 bg-terracotta-300/60"></span>
+            <p class="text-lg tracking-[0.2em] text-terracotta-300">09 . 04 . 2025</p>
+          </div>
+
+          <WeddingHashtag class="mt-4 text-xl" />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -16,19 +16,53 @@ import Countdown from "../components/Countdown.tsx";
 import MusicToggle from "../components/MusicToggle.tsx";
 import RsvpForm from "../components/RsvpForm.tsx";
 import Guestbook from "../components/Guestbook.tsx";
+import LanguageToggle from "../components/LanguageToggle.astro";
 import { getGuestNameFromUrl } from "../lib/guest";
+import { dict, t, DEFAULT_LANG } from "../lib/i18n";
 
 // personalization needs the query string per-request, so this page is server-rendered
 export const prerender = false;
 
 const guestName = getGuestNameFromUrl(Astro.url);
+
+// Absolute URLs: WhatsApp and friends will not resolve a relative og:image.
+// PUBLIC_SITE_URL lets production override the origin seen by the request.
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? Astro.url.origin;
+const ogImage = new URL("/og.jpg", siteUrl).href;
+// keep ?to= out of the shared/canonical URL so guest names are not leaked around
+const shareUrl = new URL(Astro.url.pathname, siteUrl).href;
 ---
 
-<html lang="id">
+<html lang={DEFAULT_LANG}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Bayu &amp; Natasya: Undangan Pernikahan</title>
+    <title data-i18n="meta.title">{t("meta.title")}</title>
+
+    {/* Share card. Invitations spread through WhatsApp, so a bare link would
+        show no preview at all; og.jpg is generated from /og by scripts/make-og.mjs. */}
+    <meta name="description" content={t("meta.description")} />
+    <link rel="canonical" href={siteUrl} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Bayu & Natasya" />
+    <meta property="og:title" content={t("meta.title")} />
+    <meta property="og:description" content={t("meta.description")} />
+    <meta property="og:url" content={shareUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:secure_url" content={ogImage} />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Bayu & Natasya, 09 April 2025" />
+    <meta property="og:locale" content="id_ID" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={t("meta.title")} />
+    <meta name="twitter:description" content={t("meta.description")} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <meta name="theme-color" content="#2e4653" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="any" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -40,6 +74,7 @@ const guestName = getGuestNameFromUrl(Astro.url);
     />
   </head>
   <body class="overflow-hidden" style={`--botanical-pattern: url(${botanicalPattern.src})`}>
+    <LanguageToggle />
     <Cover guestName={guestName} />
 
     <main id="main-content" class="hidden">
@@ -57,8 +92,12 @@ const guestName = getGuestNameFromUrl(Astro.url);
         <FloralImage class="pointer-events-none absolute -top-3 -left-5 h-32 w-auto opacity-80 sm:h-40" />
         <FloralImage class="pointer-events-none absolute -right-5 -bottom-3 h-32 w-auto -scale-x-100 opacity-80 sm:h-40" />
         <div class="relative z-10">
-          <p class="text-center text-xs tracking-[0.3em] text-dusty-100 uppercase" data-reveal>
-            Menuju Hari Bahagia
+          <p
+            class="text-center text-xs tracking-[0.3em] text-dusty-100 uppercase"
+            data-reveal
+            data-i18n="countdown.label"
+          >
+            {t("countdown.label")}
           </p>
           <div class="mt-8">
             <Countdown client:load />
@@ -83,14 +122,14 @@ const guestName = getGuestNameFromUrl(Astro.url);
         <FloralImage class="pointer-events-none absolute -top-4 -left-6 h-36 w-auto opacity-85 sm:h-48" />
         <FloralImage class="pointer-events-none absolute -right-6 -bottom-4 h-36 w-auto -scale-x-100 opacity-85 sm:h-48" />
 
-        <h2 class="font-display text-4xl text-dusty-900" data-reveal>Ucapan &amp; Doa</h2>
+        <h2 class="font-display text-4xl text-dusty-900" data-reveal data-i18n="rsvp.title">{t("rsvp.title")}</h2>
         <div class="mx-auto mt-4 flex items-center justify-center gap-2" data-reveal>
           <span class="h-px w-14 bg-terracotta-500/40"></span>
           <FloralImage class="h-10 w-auto opacity-90" />
           <span class="h-px w-14 bg-terracotta-500/40"></span>
         </div>
-        <p class="mx-auto mt-4 max-w-md text-sm text-dusty-700" data-reveal>
-          Mohon konfirmasi kehadiran sekaligus titipkan ucapan &amp; doa untuk kami.
+        <p class="mx-auto mt-4 max-w-md text-sm text-dusty-700" data-reveal data-i18n="rsvp.intro">
+          {t("rsvp.intro")}
         </p>
 
         <div class="mx-auto mt-12 flex max-w-4xl items-start justify-center gap-8">
@@ -111,6 +150,43 @@ const guestName = getGuestNameFromUrl(Astro.url);
     </main>
 
     <MusicToggle client:load />
+
+    <script id="i18n-data" type="application/json" is:inline set:html={JSON.stringify(dict)}></script>
+
+    <script>
+      // Language switch. Every translatable node carries data-i18n="<key>"; the
+      // dictionary is shipped once as JSON and the swap is a plain text replace,
+      // so no re-render or extra request is involved.
+      const dataEl = document.getElementById("i18n-data");
+      const strings = dataEl ? JSON.parse(dataEl.textContent || "{}") : {};
+
+      function applyLang(lang: string) {
+        const table = strings[lang];
+        if (!table) return;
+
+        document.querySelectorAll<HTMLElement>("[data-i18n]").forEach((el) => {
+          const key = el.dataset.i18n;
+          if (key && table[key] != null) el.textContent = table[key];
+        });
+
+        document.documentElement.lang = lang;
+        localStorage.setItem("lang", lang);
+
+        document.querySelectorAll<HTMLElement>("[data-lang-btn]").forEach((btn) => {
+          btn.setAttribute("aria-pressed", String(btn.dataset.langBtn === lang));
+        });
+
+        // React islands keep their own copy of the strings
+        document.dispatchEvent(new CustomEvent("lang:change", { detail: { lang } }));
+      }
+
+      document.querySelectorAll<HTMLElement>("[data-lang-btn]").forEach((btn) => {
+        btn.addEventListener("click", () => applyLang(btn.dataset.langBtn || "id"));
+      });
+
+      const saved = localStorage.getItem("lang");
+      if (saved && saved !== document.documentElement.lang) applyLang(saved);
+    </script>
 
     <script>
       const observer = new IntersectionObserver(

@@ -42,7 +42,7 @@ export async function insertWish(data: { name: string; message: string }) {
 
 export async function listWishes(limit = 50): Promise<Wish[]> {
   if (postgrestUrl) {
-    const res = await fetch(`${postgrestUrl}/wishes_public?order=created_at.desc&limit=${limit}`, {
+    const res = await fetch(`${postgrestUrl}/wishes_public?order=created_at.desc,id.desc&limit=${limit}`, {
       headers: { Accept: "application/json" },
     });
     if (!res.ok) throw new Error(`postgrest wishes_public fetch failed: ${res.status}`);
@@ -54,7 +54,8 @@ export async function listWishes(limit = 50): Promise<Wish[]> {
     .select()
     .from(wishes)
     .where(eq(wishes.approved, true))
-    .orderBy(desc(wishes.createdAt))
+    // id breaks ties so the guestbook order stays stable between page loads
+    .orderBy(desc(wishes.createdAt), desc(wishes.id))
     .limit(limit);
   return rows.map((r) => ({
     id: r.id,
