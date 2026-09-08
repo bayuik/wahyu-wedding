@@ -16,7 +16,6 @@ import Countdown from "../components/Countdown.tsx";
 import MusicToggle from "../components/MusicToggle.tsx";
 import RsvpForm from "../components/RsvpForm.tsx";
 import Guestbook from "../components/Guestbook.tsx";
-import LanguageToggle from "../components/LanguageToggle.astro";
 import { getGuestNameFromUrl } from "../lib/guest";
 import { dict, t, DEFAULT_LANG } from "../lib/i18n";
 
@@ -45,7 +44,7 @@ const shareUrl = new URL(Astro.url.pathname, siteUrl).href;
     <link rel="canonical" href={siteUrl} />
 
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Bayu & Natasya" />
+    <meta property="og:site_name" content="Wahyu & Calon Wanita" />
     <meta property="og:title" content={t("meta.title")} />
     <meta property="og:description" content={t("meta.description")} />
     <meta property="og:url" content={shareUrl} />
@@ -54,7 +53,7 @@ const shareUrl = new URL(Astro.url.pathname, siteUrl).href;
     <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Bayu & Natasya, 09 April 2025" />
+    <meta property="og:image:alt" content="Wahyu & Calon Wanita, 09 April 2025" />
     <meta property="og:locale" content="id_ID" />
 
     <meta name="twitter:card" content="summary_large_image" />
@@ -74,7 +73,6 @@ const shareUrl = new URL(Astro.url.pathname, siteUrl).href;
     />
   </head>
   <body class="overflow-hidden" style={`--botanical-pattern: url(${botanicalPattern.src})`}>
-    <LanguageToggle />
     <Cover guestName={guestName} />
 
     <main id="main-content" class="hidden">
@@ -172,20 +170,10 @@ const shareUrl = new URL(Astro.url.pathname, siteUrl).href;
         document.documentElement.lang = lang;
         localStorage.setItem("lang", lang);
 
-        document.querySelectorAll<HTMLElement>("[data-lang-btn]").forEach((btn) => {
-          btn.setAttribute("aria-pressed", String(btn.dataset.langBtn === lang));
-        });
-
-        // React islands keep their own copy of the strings
         document.dispatchEvent(new CustomEvent("lang:change", { detail: { lang } }));
       }
 
-      document.querySelectorAll<HTMLElement>("[data-lang-btn]").forEach((btn) => {
-        btn.addEventListener("click", () => applyLang(btn.dataset.langBtn || "id"));
-      });
-
-      const saved = localStorage.getItem("lang");
-      if (saved && saved !== document.documentElement.lang) applyLang(saved);
+      applyLang("id");
     </script>
 
     <script>

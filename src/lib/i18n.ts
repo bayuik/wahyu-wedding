@@ -13,9 +13,9 @@ export const LANGS: Lang[] = ["id", "en"];
  */
 export const dict: Record<Lang, Record<string, string>> = {
   id: {
-    "meta.title": "Bayu & Natasya: Undangan Pernikahan",
+    "meta.title": "Wahyu & Calon Wanita: Undangan Pernikahan",
     "meta.description":
-      "Dengan memohon rahmat Allah, kami mengundang Anda untuk hadir di pernikahan Bayu Indra Kusuma dan Natasya Widya Rahma, 09 April 2025.",
+      "Dengan memohon rahmat Allah, kami mengundang Anda untuk hadir di pernikahan Wahyu dan Calon Wanita, 09 April 2025.",
 
     "cover.invite": "Kami mengundang Anda ke pernikahan",
     "cover.to": "Kepada Yth. Bapak/Ibu/Saudara/i",
@@ -31,19 +31,19 @@ export const dict: Record<Lang, Record<string, string>> = {
     "couple.verse2":
       "dan sesungguhnya Dialah yang menciptakan pasangan laki-laki dan perempuan,",
     "couple.verse2.ref": "QS. An-Najm: 45",
-    "couple.groom.parents": "Putra dari Bapak Yatmo dan Ibu Khotimah",
-    "couple.bride.parents": "Putri dari Bapak Imam Asyari dan Ibu Enik Kusmiyati",
+    "couple.groom.parents": "Putra dari Bapak dan Ibu",
+    "couple.bride.parents": "Putri dari Bapak dan Ibu",
 
     "story.title": "Cerita di Balik Janji",
-    "story.1.title": "💼 Awal Pertemuan Sederhana",
+    "story.1.title": "💼 Awal Pertemuan",
     "story.1.text":
-      "Semua bermula pada 12 Desember 2024. Sebuah ajakan hangout sederhana mempertemukan dua hati yang belum saling mengenal. Di tengah keramaian Kuningan City, Bayu dan Natasya bertemu untuk pertama kalinya. Tak ada yang istimewa, hanya percakapan ringan dan tawa yang mengalir begitu saja. Namun dari momen itulah, segalanya perlahan berubah. Mereka mulai saling bertukar cerita, sesekali bertemu, dan menikmati waktu bersama. Dari pertemuan yang sederhana, tumbuh rasa yang tulus: pelan, namun pasti.",
-    "story.2.title": "💞 Diantara Waktu dan Jarak",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "story.2.title": "💞 Perjalanan Bersama",
     "story.2.text":
-      "Natasya pergi ke luar negeri untuk bekerja. Jarak terbentang, waktu pun berbeda empat jam. Mereka tak bisa sering bertemu, tapi selalu menemukan cara untuk tetap terhubung. Meski hanya lewat layar, mereka tetap saling menguatkan di sela kesibukan. Bagi mereka, yang penting bukan jaraknya, tapi komitmennya.",
-    "story.3.title": "💍 Akhirnya, Kami di Sini",
+      "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "story.3.title": "💍 Menuju Hari Bahagia",
     "story.3.text":
-      "Setelah waktu dan jarak terlewati, mereka tak lagi berjalan sendiri. Kini, mereka sepakat untuk melangkah bersama, dalam perjalanan yang lebih dari sekadar cinta. Dan di momen yang penuh arti ini, mereka mengundangmu untuk hadir dan turut menyempurnakan kebahagiaan mereka.",
+      "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.",
 
     "gallery.title": "Galeri",
 
@@ -116,9 +116,9 @@ export const dict: Record<Lang, Record<string, string>> = {
   },
 
   en: {
-    "meta.title": "Bayu & Natasya: Wedding Invitation",
+    "meta.title": "Wahyu & Calon Wanita: Wedding Invitation",
     "meta.description":
-      "By the grace of Allah, we invite you to the wedding of Bayu Indra Kusuma and Natasya Widya Rahma on 09 April 2025.",
+      "By the grace of Allah, we invite you to the wedding of Wahyu and Calon Wanita on 09 April 2025.",
 
     "cover.invite": "We Invite You To the Wedding of",
     "cover.to": "Dear Mr/Mrs/Ms",
@@ -133,19 +133,19 @@ export const dict: Record<Lang, Record<string, string>> = {
     "couple.verse1.ref": "QS. Adh-Dhariyat: 49",
     "couple.verse2": "and that He creates the two mates, the male and female,",
     "couple.verse2.ref": "QS. An-Najm: 45",
-    "couple.groom.parents": "Son of Mr Yatmo and Mrs Khotimah",
-    "couple.bride.parents": "Daughter of Mr Imam Asyari and Mrs Enik Kusmiyati",
+    "couple.groom.parents": "Son of Mr and Mrs",
+    "couple.bride.parents": "Daughter of Mr and Mrs",
 
     "story.title": "Our Love Story",
-    "story.1.title": "💼 A Simple First Meeting",
+    "story.1.title": "💼 The First Meeting",
     "story.1.text":
-      "It all began on 12 December 2024. A simple invitation to hang out brought together two hearts who had never met. Amid the bustle of Kuningan City, Bayu and Natasya met for the very first time. Nothing extraordinary happened, only light conversation and laughter that flowed on its own. Yet from that moment, everything slowly changed. They began sharing stories, meeting now and then, and enjoying time together. From the simplest of meetings, a sincere feeling grew: slowly, but surely.",
-    "story.2.title": "💞 Between Time and Distance",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "story.2.title": "💞 The Journey Together",
     "story.2.text":
-      "Natasya moved abroad for work. The distance stretched between them, and the clocks sat four hours apart. They could not meet often, yet they always found a way to stay connected. Even through a screen, they kept each other strong between busy days. For them, what mattered was never the distance, but the commitment.",
-    "story.3.title": "💍 At Last, Here We Are",
+      "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "story.3.title": "💍 Toward the Happy Day",
     "story.3.text":
-      "Having come through time and distance, they no longer walk alone. Now they have agreed to step forward together, on a journey that means far more than love alone. And in this meaningful moment, they invite you to be present and complete their happiness.",
+      "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.",
 
     "gallery.title": "Gallery",
 

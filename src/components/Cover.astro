@@ -2,7 +2,6 @@
 import FloralImage from "./FloralImage.astro";
 import FloatingPetals from "./FloatingPetals.astro";
 import BotanicalPlate from "./BotanicalPlate.astro";
-import WeddingHashtag from "./WeddingHashtag.astro";
 import { t } from "../lib/i18n";
 
 interface Props {
@@ -60,7 +59,7 @@ const { guestName } = Astro.props;
       <FloralImage class="pointer-events-none absolute -right-10 -bottom-4 h-20 w-auto -scale-x-100 sm:h-24" />
     </div>
 
-    <h1 class="font-display mt-8 text-5xl leading-tight sm:text-6xl">Bayu &amp; Natasya</h1>
+    <h1 class="font-display mt-8 text-5xl leading-tight sm:text-6xl">Wahyu &amp; Calon Wanita</h1>
 
     <div class="mt-4 flex items-center gap-3">
       <span class="h-px w-10 bg-terracotta-300/60"></span>
@@ -68,7 +67,6 @@ const { guestName } = Astro.props;
       <span class="h-px w-10 bg-terracotta-300/60"></span>
     </div>
 
-    <WeddingHashtag class="mt-5 text-base" />
 
     {guestName && (
       <div class="mt-8 rounded-2xl border border-dusty-700/60 bg-dusty-900/50 px-6 py-4 backdrop-blur-sm">
