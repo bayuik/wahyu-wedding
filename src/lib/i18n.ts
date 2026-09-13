@@ -31,8 +31,8 @@ export const dict: Record<Lang, Record<string, string>> = {
     "couple.verse2":
       "dan sesungguhnya Dialah yang menciptakan pasangan laki-laki dan perempuan,",
     "couple.verse2.ref": "QS. An-Najm: 45",
-    "couple.groom.parents": "Putra dari Bapak Kadi dan Ibu Supatmiana",
-    "couple.bride.parents": "Putri dari Bapak Sulam dan Ibu Sumining",
+    "couple.groom.parents": "Putra ke 2 dari Bapak Kadi dan Ibu Supatmiana",
+    "couple.bride.parents": "Putri ke 4 dari Bapak Sulam dan Ibu Sumining",
 
     "story.title": "Cerita di Balik Janji",
     "story.1.title": "💼 Awal Pertemuan",
@@ -62,7 +62,7 @@ export const dict: Record<Lang, Record<string, string>> = {
     "event.akad.time": "08.00 - 10.00 WIB",
     "event.resepsi.time": "11.00 - 14.00 WIB",
     "event.akad.place": "Masjid Al-Muttaqin Dusun Gampeng, Desa Banjarjo, Kecamatan Sumberejo",
-    "event.resepsi.place": "Kediaman Mempelai Wanita",
+    "event.resepsi.place": "Kediaman Mempelai Wanita Dusun Gampeng, Desa Banjarjo, Kecamatan Sumberejo",
     "event.map": "Lihat Lokasi",
     "event.dresscode.intro":
       "Agar momen ini terasa hangat dan selaras, kenakanlah busana terbaikmu dalam balutan:",
@@ -133,8 +133,8 @@ export const dict: Record<Lang, Record<string, string>> = {
     "couple.verse1.ref": "QS. Adh-Dhariyat: 49",
     "couple.verse2": "and that He creates the two mates, the male and female,",
     "couple.verse2.ref": "QS. An-Najm: 45",
-    "couple.groom.parents": "Son of Mr Kadi and Mrs Supatmiana",
-    "couple.bride.parents": "Daughter of Mr Sulam and Mrs Sumining",
+    "couple.groom.parents": "2nd Son of Mr Kadi and Mrs Supatmiana",
+    "couple.bride.parents": "4th Daughter of Mr Sulam and Mrs Sumining",
 
     "story.title": "Our Love Story",
     "story.1.title": "💼 The First Meeting",
@@ -164,7 +164,7 @@ export const dict: Record<Lang, Record<string, string>> = {
     "event.akad.time": "08.00 - 10.00 (GMT+7)",
     "event.resepsi.time": "11.00 - 14.00 (GMT+7)",
     "event.akad.place": "Masjid Al-Muttaqin Dusun Gampeng, Desa Banjarjo, Kecamatan Sumberejo",
-    "event.resepsi.place": "Kediaman Mempelai Wanita",
+    "event.resepsi.place": "Kediaman Mempelai Wanita Dusun Gampeng, Desa Banjarjo, Kecamatan Sumberejo",
     "event.map": "View Location",
     "event.dresscode.intro":
       "To keep the moment warm and in harmony, please wear your best in:",
