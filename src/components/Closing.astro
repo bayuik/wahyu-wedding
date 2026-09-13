@@ -13,13 +13,7 @@ import FloatingPetals from "./FloatingPetals.astro";
   <FloralImage class="pointer-events-none absolute -right-6 -bottom-4 h-40 w-auto -scale-x-100 opacity-90 sm:h-52" />
 
   <div class="relative z-10 flex flex-col items-center">
-    <div class="relative">
-      <BotanicalPlate plate="wild" shape="arch" class="h-48 w-36 sm:h-56 sm:w-40" data-reveal="zoom" />
-      <FloralImage class="pointer-events-none absolute -bottom-3 -left-8 h-20 w-auto sm:h-24" />
-      <FloralImage class="pointer-events-none absolute -right-8 -bottom-3 h-20 w-auto -scale-x-100 sm:h-24" />
-    </div>
-
-    <h2 class="font-display mt-10 text-5xl sm:text-6xl" data-reveal data-i18n="closing.thanks">{t("closing.thanks")}</h2>
+    <h2 class="font-display text-5xl sm:text-6xl" data-reveal data-i18n="closing.thanks">{t("closing.thanks")}</h2>
 
     <p class="mx-auto mt-5 max-w-md text-sm text-dusty-100" data-reveal>
       <span data-i18n="closing.appreciate">{t("closing.appreciate")}</span>

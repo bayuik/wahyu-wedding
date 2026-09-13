@@ -2,10 +2,7 @@
 import "../styles/global.css";
 import Cover from "../components/Cover.astro";
 import CoupleInfo from "../components/CoupleInfo.astro";
-import OurStory from "../components/OurStory.astro";
-import Gallery from "../components/Gallery.astro";
 import EventDetail from "../components/EventDetail.astro";
-import LiveStream from "../components/LiveStream.astro";
 import GiftSection from "../components/GiftSection.astro";
 import Closing from "../components/Closing.astro";
 import FloralImage from "../components/FloralImage.astro";
@@ -14,8 +11,6 @@ import BotanicalPlate from "../components/BotanicalPlate.astro";
 import botanicalPattern from "../assets/floral/pattern-botanical.png";
 import Countdown from "../components/Countdown.tsx";
 import MusicToggle from "../components/MusicToggle.tsx";
-import RsvpForm from "../components/RsvpForm.tsx";
-import Guestbook from "../components/Guestbook.tsx";
 import { getGuestNameFromUrl } from "../lib/guest";
 import { dict, t, DEFAULT_LANG } from "../lib/i18n";
 
@@ -44,7 +39,7 @@ const shareUrl = new URL(Astro.url.pathname, siteUrl).href;
     <link rel="canonical" href={siteUrl} />
 
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Wahyu & Calon Wanita" />
+    <meta property="og:site_name" content="Wahyu & Utari" />
     <meta property="og:title" content={t("meta.title")} />
     <meta property="og:description" content={t("meta.description")} />
     <meta property="og:url" content={shareUrl} />
@@ -53,7 +48,7 @@ const shareUrl = new URL(Astro.url.pathname, siteUrl).href;
     <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Wahyu & Calon Wanita, 09 April 2025" />
+    <meta property="og:image:alt" content="Wahyu & Utari, 28 October 2026" />
     <meta property="og:locale" content="id_ID" />
 
     <meta name="twitter:card" content="summary_large_image" />
@@ -78,13 +73,7 @@ const shareUrl = new URL(Astro.url.pathname, siteUrl).href;
     <main id="main-content" class="hidden">
       <CoupleInfo />
 
-      <SectionBlend from="from-cream-100" to="to-dusty-100" />
-      <OurStory />
-
-      <SectionBlend from="from-dusty-100" to="to-cream-100" />
-      <Gallery />
-
-      <SectionBlend from="from-cream-100" to="to-dusty-900" height="h-52 sm:h-64" />
+      <SectionBlend from="from-dusty-900" to="to-dusty-900" height="h-52 sm:h-64" />
 
       <section class="relative overflow-hidden bg-dusty-900 px-6 py-16">
         <FloralImage class="pointer-events-none absolute -top-3 -left-5 h-32 w-auto opacity-80 sm:h-40" />
@@ -105,45 +94,6 @@ const shareUrl = new URL(Astro.url.pathname, siteUrl).href;
 
       <EventDetail />
 
-      <SectionBlend from="from-dusty-900" to="to-cream-100" height="h-52 sm:h-64" />
-      <LiveStream />
-
-      {/* Love Gift disembunyikan sementara: belum mau menampilkan nomor rekening.
-          Untuk memunculkan lagi, hapus komentar di bawah ini (dan blend-nya),
-          lalu ubah blend Live Streaming -> RSVP jadi cream-100 -> dusty-100.
-      <SectionBlend from="from-cream-100" to="to-dusty-100" />
-      <GiftSection />
-      <SectionBlend from="from-dusty-100" to="to-cream-100" />
-      */}
-
-      <section class="bg-botanical relative overflow-hidden bg-cream-100 px-6 py-16 text-center">
-        <FloralImage class="pointer-events-none absolute -top-4 -left-6 h-36 w-auto opacity-85 sm:h-48" />
-        <FloralImage class="pointer-events-none absolute -right-6 -bottom-4 h-36 w-auto -scale-x-100 opacity-85 sm:h-48" />
-
-        <h2 class="font-display text-4xl text-dusty-900" data-reveal data-i18n="rsvp.title">{t("rsvp.title")}</h2>
-        <div class="mx-auto mt-4 flex items-center justify-center gap-2" data-reveal>
-          <span class="h-px w-14 bg-terracotta-500/40"></span>
-          <FloralImage class="h-10 w-auto opacity-90" />
-          <span class="h-px w-14 bg-terracotta-500/40"></span>
-        </div>
-        <p class="mx-auto mt-4 max-w-md text-sm text-dusty-700" data-reveal data-i18n="rsvp.intro">
-          {t("rsvp.intro")}
-        </p>
-
-        <div class="mx-auto mt-12 flex max-w-4xl items-start justify-center gap-8">
-          <BotanicalPlate plate="cluster" shape="arch" class="hidden h-80 w-48 shrink-0 lg:block" data-reveal="left" />
-
-          <div class="flex-1" data-reveal>
-            <RsvpForm guestName={guestName} client:load />
-          </div>
-
-          <BotanicalPlate plate="white" shape="arch" class="hidden h-80 w-48 shrink-0 lg:block" data-reveal="right" />
-        </div>
-
-        <Guestbook client:load />
-      </section>
-
-      <SectionBlend from="from-cream-100" to="to-dusty-900" height="h-52 sm:h-64" />
       <Closing />
     </main>
 

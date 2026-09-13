@@ -3,10 +3,14 @@ import { t } from "../lib/i18n";
 import FloralImage from "./FloralImage.astro";
 import BotanicalPlate from "./BotanicalPlate.astro";
 import FloatingPetals from "./FloatingPetals.astro";
+import { Image } from "astro:assets";
+import akadPhoto from "../assets/photos/akad.jpg";
+import resepsiPhoto from "../assets/photos/resepsi.jpg";
 
+const MAPS_URL = "https://maps.app.goo.gl/bxe8wrYjHAMTDKx76?g_st=ac";
 const events = [
-  { key: "akad", mapsQuery: "Kediaman Mempelai Wanita", plate: "white" as const },
-  { key: "resepsi", mapsQuery: "Gedung Resepsi", plate: "cluster" as const },
+  { key: "akad", plate: "white" as const },
+  { key: "resepsi", plate: "cluster" as const },
 ];
 ---
 
@@ -34,7 +38,15 @@ const events = [
       {events.map((e, i) => (
         <div class="flex flex-col items-center" data-reveal={i === 0 ? "left" : "right"}>
           <div class="relative">
-            <BotanicalPlate plate={e.plate} shape="arch" class="h-48 w-36 sm:h-56 sm:w-40" />
+            {e.key === "akad" ? (
+              <div class="arch h-48 w-36 overflow-hidden shadow-lg ring-1 ring-dusty-500/40 sm:h-56 sm:w-40">
+                <Image src={akadPhoto} alt="Akad Nikah" class="h-full w-full object-cover object-top" />
+              </div>
+            ) : (
+              <div class="arch h-48 w-36 overflow-hidden shadow-lg ring-1 ring-dusty-500/40 sm:h-56 sm:w-40">
+                <Image src={resepsiPhoto} alt="Resepsi" class="h-full w-full object-cover object-top" />
+              </div>
+            )}
             <FloralImage class="pointer-events-none absolute -bottom-3 -left-7 h-16 w-auto sm:h-20" />
             <FloralImage class="pointer-events-none absolute -right-7 -bottom-3 h-16 w-auto -scale-x-100 sm:h-20" />
           </div>
@@ -42,10 +54,10 @@ const events = [
           <div class="mt-6 w-full rounded-2xl border border-dusty-700/70 bg-dusty-900/60 p-6 backdrop-blur-sm">
             <h3 class="font-display text-2xl text-terracotta-300" data-i18n={`event.${e.key}`}>{t(`event.${e.key}`)}</h3>
             <p class="mt-3 text-sm" data-i18n="event.date">{t("event.date")}</p>
-            <p class="text-sm" data-i18n={`event.${e.key}.time`}>{t(`event.${e.key}.time`)}</p>
+            {/* <p class="text-sm" data-i18n={`event.${e.key}.time`}>{t(`event.${e.key}.time`)}</p> */}
             <p class="mt-3 text-sm text-dusty-100" data-i18n={`event.${e.key}.place`}>{t(`event.${e.key}.place`)}</p>
             <a
-              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(e.mapsQuery)}`}
+              href={MAPS_URL}
               target="_blank"
               rel="noopener noreferrer"
               class="mt-5 inline-block rounded-full border border-terracotta-300 px-5 py-2 text-xs tracking-widest uppercase text-terracotta-300 transition hover:bg-terracotta-300 hover:text-dusty-900"

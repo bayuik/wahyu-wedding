@@ -3,6 +3,8 @@ import FloralImage from "./FloralImage.astro";
 import FloatingPetals from "./FloatingPetals.astro";
 import BotanicalPlate from "./BotanicalPlate.astro";
 import { t } from "../lib/i18n";
+import { Image } from "astro:assets";
+import coverPhoto from "../assets/photos/cover.jpg";
 
 interface Props {
   guestName: string | null;
@@ -50,20 +52,23 @@ const { guestName } = Astro.props;
     </p>
 
     <div class="relative mt-6">
-      <BotanicalPlate
-        plate="white"
-        shape="arch"
-        class="h-56 w-40 sm:h-72 sm:w-52"
-      />
+      <div class="arch h-56 w-40 overflow-hidden shadow-xl ring-2 ring-dusty-300/30 sm:h-72 sm:w-52">
+        <Image
+          src={coverPhoto}
+          alt="Wahyu & Utari"
+          class="h-full w-full object-cover object-top"
+          loading="eager"
+        />
+      </div>
       <FloralImage class="pointer-events-none absolute -bottom-4 -left-10 h-20 w-auto sm:h-24" />
       <FloralImage class="pointer-events-none absolute -right-10 -bottom-4 h-20 w-auto -scale-x-100 sm:h-24" />
     </div>
 
-    <h1 class="font-display mt-8 text-5xl leading-tight sm:text-6xl">Wahyu &amp; Calon Wanita</h1>
+    <h1 class="font-display mt-8 text-5xl leading-tight sm:text-6xl">Wahyu &amp; Utari</h1>
 
     <div class="mt-4 flex items-center gap-3">
       <span class="h-px w-10 bg-terracotta-300/60"></span>
-      <p class="text-sm tracking-[0.2em] text-terracotta-300">09 . 04 . 2025</p>
+      <p class="text-sm tracking-[0.2em] text-terracotta-300">28 . 10 . 2026</p>
       <span class="h-px w-10 bg-terracotta-300/60"></span>
     </div>
 

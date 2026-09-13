@@ -13,9 +13,9 @@ export const LANGS: Lang[] = ["id", "en"];
  */
 export const dict: Record<Lang, Record<string, string>> = {
   id: {
-    "meta.title": "Wahyu & Calon Wanita: Undangan Pernikahan",
+    "meta.title": "Wahyu & Utari: Undangan Pernikahan",
     "meta.description":
-      "Dengan memohon rahmat Allah, kami mengundang Anda untuk hadir di pernikahan Wahyu dan Calon Wanita, 09 April 2025.",
+      "Dengan memohon rahmat Allah, kami mengundang Anda untuk hadir di pernikahan Wahyu dan Utari, 28 Oktober 2026.",
 
     "cover.invite": "Kami mengundang Anda ke pernikahan",
     "cover.to": "Kepada Yth. Bapak/Ibu/Saudara/i",
@@ -31,8 +31,8 @@ export const dict: Record<Lang, Record<string, string>> = {
     "couple.verse2":
       "dan sesungguhnya Dialah yang menciptakan pasangan laki-laki dan perempuan,",
     "couple.verse2.ref": "QS. An-Najm: 45",
-    "couple.groom.parents": "Putra dari Bapak dan Ibu",
-    "couple.bride.parents": "Putri dari Bapak dan Ibu",
+    "couple.groom.parents": "Putra dari Bapak Kadi dan Ibu Supatmiana",
+    "couple.bride.parents": "Putri dari Bapak Sulam dan Ibu Sumining",
 
     "story.title": "Cerita di Balik Janji",
     "story.1.title": "💼 Awal Pertemuan",
@@ -58,11 +58,11 @@ export const dict: Record<Lang, Record<string, string>> = {
       "Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta'ala, insyaAllah kami akan menyelenggarakan acara:",
     "event.akad": "Akad Nikah",
     "event.resepsi": "Resepsi",
-    "event.date": "Rabu, 09 April 2025",
+    "event.date": "Rabu, 28 Oktober 2026",
     "event.akad.time": "08.00 - 10.00 WIB",
     "event.resepsi.time": "11.00 - 14.00 WIB",
-    "event.akad.place": "Kediaman Mempelai Wanita",
-    "event.resepsi.place": "Gedung Resepsi",
+    "event.akad.place": "Masjid Al-Muttaqin Dusun Gampeng, Desa Banjarjo, Kecamatan Sumberejo",
+    "event.resepsi.place": "Kediaman Mempelai Wanita",
     "event.map": "Lihat Lokasi",
     "event.dresscode.intro":
       "Agar momen ini terasa hangat dan selaras, kenakanlah busana terbaikmu dalam balutan:",
@@ -116,9 +116,9 @@ export const dict: Record<Lang, Record<string, string>> = {
   },
 
   en: {
-    "meta.title": "Wahyu & Calon Wanita: Wedding Invitation",
+    "meta.title": "Wahyu & Utari: Wedding Invitation",
     "meta.description":
-      "By the grace of Allah, we invite you to the wedding of Wahyu and Calon Wanita on 09 April 2025.",
+      "By the grace of Allah, we invite you to the wedding of Wahyu and Utari on 28 October 2026.",
 
     "cover.invite": "We Invite You To the Wedding of",
     "cover.to": "Dear Mr/Mrs/Ms",
@@ -133,8 +133,8 @@ export const dict: Record<Lang, Record<string, string>> = {
     "couple.verse1.ref": "QS. Adh-Dhariyat: 49",
     "couple.verse2": "and that He creates the two mates, the male and female,",
     "couple.verse2.ref": "QS. An-Najm: 45",
-    "couple.groom.parents": "Son of Mr and Mrs",
-    "couple.bride.parents": "Daughter of Mr and Mrs",
+    "couple.groom.parents": "Son of Mr Kadi and Mrs Supatmiana",
+    "couple.bride.parents": "Daughter of Mr Sulam and Mrs Sumining",
 
     "story.title": "Our Love Story",
     "story.1.title": "💼 The First Meeting",
@@ -160,11 +160,11 @@ export const dict: Record<Lang, Record<string, string>> = {
       "By the grace and blessing of Allah Subhanahu Wa Ta'ala, we will hold the following celebration:",
     "event.akad": "Wedding Ceremony",
     "event.resepsi": "Reception",
-    "event.date": "Wednesday, 09 April 2025",
+    "event.date": "Wednesday, 28 October 2026",
     "event.akad.time": "08.00 - 10.00 (GMT+7)",
     "event.resepsi.time": "11.00 - 14.00 (GMT+7)",
-    "event.akad.place": "The Bride's Residence",
-    "event.resepsi.place": "Reception Hall",
+    "event.akad.place": "Masjid Al-Muttaqin Dusun Gampeng, Desa Banjarjo, Kecamatan Sumberejo",
+    "event.resepsi.place": "Kediaman Mempelai Wanita",
     "event.map": "View Location",
     "event.dresscode.intro":
       "To keep the moment warm and in harmony, please wear your best in:",
