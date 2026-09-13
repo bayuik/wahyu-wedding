@@ -54,7 +54,7 @@ export default function Guestbook() {
   return (
     <div className="mx-auto mt-10 flex max-w-xl flex-col gap-4">
       {wishes.map((w) => (
-        <div key={w.id} className="rounded-lg bg-cream-50 p-4 text-left shadow-sm">
+        <div key={w.id} className="rounded-lg bg-dusty-700/40 p-4 text-left shadow-sm">
           <p className="text-sm font-semibold text-dusty-900">{w.name}</p>
           <p className="mt-1 text-sm text-dusty-700">{w.message}</p>
         </div>

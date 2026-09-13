@@ -69,7 +69,6 @@ export default function MusicToggle() {
   return (
     <div className="fixed right-6 bottom-6 z-50">
       <audio ref={audioRef} loop preload="none">
-        <source src="/music.ogg" type="audio/ogg" />
         <source src="/music.mp3" type="audio/mpeg" />
       </audio>
       <button

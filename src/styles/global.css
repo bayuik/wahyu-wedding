@@ -5,27 +5,27 @@
   --font-body: "Jost", sans-serif;
   --font-arabic: "Noto Naskh Arabic", serif;
 
-  --color-dusty-50: #eef3f6;
-  --color-dusty-100: #d7e2e9;
-  --color-dusty-300: #a3bccb;
-  --color-dusty-500: #7b9eb3;
-  --color-dusty-700: #4f7186;
-  --color-dusty-900: #2e4653;
+  --color-dusty-50: #edf1f8;
+  --color-dusty-100: #d0d9ee;
+  --color-dusty-300: #9aaad3;
+  --color-dusty-500: #6678b3;
+  --color-dusty-700: #3d4f8a;
+  --color-dusty-900: #253166;
 
-  --color-terracotta-100: #f2ddce;
-  --color-terracotta-300: #dba07a;
-  --color-terracotta-500: #c1683c;
-  --color-terracotta-700: #954b28;
+  --color-terracotta-100: #d0d9ee;
+  --color-terracotta-300: #9aaad3;
+  --color-terracotta-500: #6678b3;
+  --color-terracotta-700: #253166;
 
-  --color-cream-50: #fdfbf7;
-  --color-cream-100: #f7f0e4;
-  --color-cream-300: #ece0c8;
+  --color-cream-50: #edf1f8;
+  --color-cream-100: #d0d9ee;
+  --color-cream-300: #9aaad3;
 
-  --color-ink: #2b2620;
+  --color-ink: #edf1f8;
 }
 
 body {
-  background-color: var(--color-cream-50);
+  background-color: var(--color-dusty-900);
   color: var(--color-ink);
   font-family: var(--font-body);
 }

@@ -57,7 +57,7 @@ export default function RsvpForm({ guestName }: Props) {
           required
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="rounded-lg border border-dusty-300 bg-cream-50 px-3 py-2 outline-none focus:border-terracotta-500"
+          className="rounded-lg border border-dusty-300 bg-dusty-700/40 px-3 py-2 outline-none focus:border-terracotta-500"
         />
       </label>
 
@@ -66,7 +66,7 @@ export default function RsvpForm({ guestName }: Props) {
         <select
           value={attendance}
           onChange={(e) => setAttendance(e.target.value as typeof attendance)}
-          className="rounded-lg border border-dusty-300 bg-cream-50 px-3 py-2 outline-none focus:border-terracotta-500"
+          className="rounded-lg border border-dusty-300 bg-dusty-700/40 px-3 py-2 outline-none focus:border-terracotta-500"
         >
           <option value="hadir">{t("rsvp.attend.yes")}</option>
           <option value="tidak">{t("rsvp.attend.no")}</option>
@@ -83,7 +83,7 @@ export default function RsvpForm({ guestName }: Props) {
             max={10}
             value={pax}
             onChange={(e) => setPax(Number(e.target.value))}
-            className="rounded-lg border border-dusty-300 bg-cream-50 px-3 py-2 outline-none focus:border-terracotta-500"
+            className="rounded-lg border border-dusty-300 bg-dusty-700/40 px-3 py-2 outline-none focus:border-terracotta-500"
           />
         </label>
       )}
@@ -95,7 +95,7 @@ export default function RsvpForm({ guestName }: Props) {
           onChange={(e) => setMessage(e.target.value)}
           rows={3}
           placeholder={t("rsvp.message.placeholder")}
-          className="rounded-lg border border-dusty-300 bg-cream-50 px-3 py-2 outline-none focus:border-terracotta-500"
+          className="rounded-lg border border-dusty-300 bg-dusty-700/40 px-3 py-2 outline-none focus:border-terracotta-500"
         />
       </label>
 
