@@ -17,7 +17,8 @@ export const dict: Record<Lang, Record<string, string>> = {
     "meta.description":
       "Dengan memohon rahmat Allah, kami mengundang Anda untuk hadir di pernikahan Wahyu dan Utari, 28 Oktober 2026.",
 
-    "cover.invite": "Kami mengundang Anda ke pernikahan",
+    "cover.invite": "Wedding Invitation",
+    "cover.savethedate": "Save The Date",
     "cover.to": "Kepada Yth. Bapak/Ibu/Saudara/i",
     "cover.open": "Buka Undangan",
 
@@ -59,10 +60,10 @@ export const dict: Record<Lang, Record<string, string>> = {
     "event.akad": "Akad Nikah",
     "event.resepsi": "Resepsi",
     "event.date": "Rabu, 28 Oktober 2026",
-    "event.akad.time": "08.00 - 10.00 WIB",
-    "event.resepsi.time": "11.00 - 14.00 WIB",
-    "event.akad.place": "Masjid Al-Muttaqin Dusun Gampeng, Desa Banjarjo, Kecamatan Sumberejo",
-    "event.resepsi.place": "Kediaman Mempelai Wanita Dusun Gampeng, Desa Banjarjo, Kecamatan Sumberejo",
+    "event.akad.time": "08.00 WIB",
+    "event.resepsi.time": "10.00 WIB",
+    "event.akad.place": "Masjid Al-Muttaqin Dusun Gampeng, Desa Banjarjo, Kecamatan Sumberrejo, Kabupaten Bojonegoro",
+    "event.resepsi.place": "Kediaman Mempelai Wanita Dusun Gampeng, Desa Banjarjo, Kecamatan Sumberrejo, Kabupaten Bojonegoro",
     "event.map": "Lihat Lokasi",
     "event.dresscode.intro":
       "Agar momen ini terasa hangat dan selaras, kenakanlah busana terbaikmu dalam balutan:",
@@ -121,6 +122,7 @@ export const dict: Record<Lang, Record<string, string>> = {
       "By the grace of Allah, we invite you to the wedding of Wahyu and Utari on 28 October 2026.",
 
     "cover.invite": "We Invite You To the Wedding of",
+    "cover.savethedate": "Save The Date",
     "cover.to": "Dear Mr/Mrs/Ms",
     "cover.open": "Open the Invitation",
 
@@ -161,10 +163,10 @@ export const dict: Record<Lang, Record<string, string>> = {
     "event.akad": "Wedding Ceremony",
     "event.resepsi": "Reception",
     "event.date": "Wednesday, 28 October 2026",
-    "event.akad.time": "08.00 - 10.00 (GMT+7)",
-    "event.resepsi.time": "11.00 - 14.00 (GMT+7)",
-    "event.akad.place": "Masjid Al-Muttaqin Dusun Gampeng, Desa Banjarjo, Kecamatan Sumberejo",
-    "event.resepsi.place": "Kediaman Mempelai Wanita Dusun Gampeng, Desa Banjarjo, Kecamatan Sumberejo",
+    "event.akad.time": "08.00 (GMT+7)",
+    "event.resepsi.time": "10.00 (GMT+7)",
+    "event.akad.place": "Masjid Al-Muttaqin Dusun Gampeng, Desa Banjarjo, Kecamatan Sumberrejo, Kabupaten Bojonegoro",
+    "event.resepsi.place": "Kediaman Mempelai Wanita Dusun Gampeng, Desa Banjarjo, Kecamatan Sumberrejo, Kabupaten Bojonegoro",
     "event.map": "View Location",
     "event.dresscode.intro":
       "To keep the moment warm and in harmony, please wear your best in:",

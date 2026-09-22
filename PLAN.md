@@ -1,4 +1,4 @@
-# Wedding Invitation: Bayu Indra Kusuma & Natasya
+# Wedding Invitation: Wahyu & Utari
 
 Reference: viding.com-style digital invitation (wennyfarrel.viding.com, site unreachable saat cek, plan disusun dari pola umum platform viding/undangan digital Indonesia).
 
@@ -18,7 +18,7 @@ Mini PC udah punya Postgres 16 jalan di Docker (`~/docker/odoo-postgres/`, share
 2. **Production (diputuskan)**: tetap self-host di mini PC, lewat tunnel Cloudflare yang udah ada (`odoo19-ce`, awalnya cuma buat `internal.bayuik.com` ke Odoo). Vercel gak bisa connect raw Postgres protocol ke tunnel (Cloudflare Tunnel gratis cuma buat HTTP, raw TCP publik butuh Spectrum berbayar), jadi ditaruh **PostgREST** di depan Postgres:
    - Role Postgres terbatas `wedding_api`: cuma `INSERT` ke `rsvp` & `wishes`, `SELECT` ke view `wishes_public` (filter `approved = true`). Gak bisa baca tabel mentah.
    - Container `wedding-api` (image `postgrest/postgrest`) nambah di `~/docker/odoo-postgres/docker-compose.yml`, port `8021` di host.
-   - Ingress baru di tunnel: `wedding-api.bayuik.com` → `http://localhost:8021`, jalan bareng ingress Odoo yang lama, satu tunnel aja. (Sempat coba `api.natasya.bayuik.com`, gagal karena itu subdomain 3 level dan gak ke-cover wildcard SSL `*.bayuik.com` punya Cloudflare, cuma cover 1 level.)
+   - Ingress baru di tunnel: `wedding-api.bayuik.com` → `http://localhost:8021`, jalan bareng ingress Odoo yang lama, satu tunnel aja. (Sempat coba `api.wahyu.bayuik.com`, gagal karena itu subdomain 3 level dan gak ke-cover wildcard SSL `*.bayuik.com` punya Cloudflare, cuma cover 1 level.)
    - Kode `/api/rsvp` & `/api/wishes` di-refactor lewat `src/lib/repo.ts`: kalau env `POSTGREST_URL` ke-set (production di Vercel), fetch ke PostgREST; kalau enggak (dev di mini PC), tetap Drizzle langsung ke `localhost:5432` kayak biasa. Gak ada perubahan behavior pas dev.
    - Risiko yang disadari: RSVP tamu bergantung mini PC + internet rumah nyala terus pas hari-H. Diterima, gak pindah ke Neon.
 
@@ -35,7 +35,7 @@ gift_log    (id, name nullable, channel[bank|qris|ewallet], note, created_at)  -
 
 - **Cover / intro**: nama couple, tanggal, tombol "Buka Undangan" (trigger autoplay musik, browser policy butuh interaksi user dulu).
 - **Nama tamu personal**: link `?to=Nama` atau `?to=slug` (lookup ke tabel `guests`). Tampil "Kepada Yth. Bapak/Ibu {name}" di intro & bisa prefill nama di form RSVP.
-- **Couple info**: bio singkat Bayu & Natasya, foto profil.
+- **Couple info**: bio singkat Wahyu & Utari, foto profil.
 - **Our story + galeri foto**: timeline cerita, grid galeri pakai `astro:assets` (auto-optimize/lazy load), lightbox on click.
 - **Detail acara**: akad & resepsi terpisah (tanggal, jam, lokasi), embed Google Maps, tombol "Tambah ke Kalender" (.ics).
 - **Live streaming**: YouTube bisa embed langsung (iframe live). **IG Live & TikTok Live gak bisa di-embed inline** (limitasi platform, gak ada iframe resmi), solusinya tombol "Tonton di Instagram" / "Tonton di TikTok" yang buka link native app/web pas hari-H. Perlu disiapin link-nya H-1.
@@ -58,7 +58,7 @@ Rekomendasi **A**, sesuai request "biru + menarik", kombinasi dusty blue-terraco
 ## Struktur folder rencana
 
 ```
-wedding-bayu-natasya/
+wedding-wahyu-utari/
   src/
     pages/
       index.astro          -- single page invitation (section-based)
@@ -89,7 +89,7 @@ wedding-bayu-natasya/
 
 ## Domain & hosting
 
-- Domain custom disaranin (misal `bayudannatasya.com` / subdomain gratis dari penyedia undangan biasa dipakai kalau mau hemat).
+- Domain custom disaranin (misal `wahyudanutari.com` / subdomain gratis dari penyedia undangan biasa dipakai kalau mau hemat).
 - Frontend tetap di Vercel (bukan mini PC), biar diakses tamu stabil dari luar tanpa tergantung uptime/koneksi rumah. DB dev jalan di mini PC, keputusan DB production lihat bagian Database di atas.
 
 ## Next step kalau plan ini oke
