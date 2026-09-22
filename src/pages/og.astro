@@ -8,8 +8,9 @@
  */
 import "../styles/global.css";
 import FloralImage from "../components/FloralImage.astro";
-import BotanicalPlate from "../components/BotanicalPlate.astro";
 import { t } from "../lib/i18n";
+import { Image } from "astro:assets";
+import coverPhoto from "../assets/photos/cover.jpg";
 
 export const prerender = false;
 ---
@@ -38,7 +39,14 @@ export const prerender = false;
       <FloralImage class="pointer-events-none absolute -right-10 -bottom-12 h-72 w-auto rotate-180 -scale-x-100" />
 
       <div class="relative z-10 flex items-center gap-14">
-        <BotanicalPlate plate="white" shape="arch" class="h-[420px] w-[300px]" kenBurns={false} />
+        <div class="arch h-[420px] w-[300px] overflow-hidden shadow-lg ring-1 ring-terracotta-300/40">
+          <Image
+            src={coverPhoto}
+            alt=""
+            width={600}
+            class="h-full w-full object-cover object-top"
+          />
+        </div>
 
         <div class="flex flex-col items-start">
           <p class="font-display text-xl tracking-wide text-dusty-100">
@@ -50,7 +58,7 @@ export const prerender = false;
 
           <div class="mt-6 flex items-center gap-4">
             <span class="h-px w-14 bg-terracotta-300/60"></span>
-            <p class="text-lg tracking-[0.2em] text-terracotta-300">09 . 04 . 2025</p>
+            <p class="text-lg tracking-[0.2em] text-terracotta-300">28 . 10 . 2026</p>
           </div>
         </div>
       </div>
